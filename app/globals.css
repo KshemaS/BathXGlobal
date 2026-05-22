@@ -1,26 +1,117 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ffffff;
+  --font-sans: "Hanken Grotesk", sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: "Hanken Grotesk", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Hanken Grotesk", sans-serif;
+}
+
+/* --- Full-page scroll snap container --- */
+.page-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.page-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* --- Slick Carousel Styling Overrides --- */
+
+/* Slick lists should not clip absolutely positioned arrows if they need to overlap slightly */
+.slick-list {
+  overflow: visible !important;
+  clip-path: inset(-50px -50px -50px -50px);
+}
+
+@media (max-width: 768px) {
+  .slick-list {
+    overflow: hidden !important;
+  }
+}
+
+/* Custom Dots styling to match the reference image */
+.slick-dots {
+  bottom: -45px !important;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  list-style: none;
+  width: 100%;
+}
+
+.slick-dots li {
+  width: 6px !important;
+  height: 6px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background-color: #ffffff;
+  opacity: 0.2;
+  border-radius: 9999px;
+  transition: all 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.slick-dots li button {
+  width: 100% !important;
+  height: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  opacity: 0 !important;
+  cursor: pointer;
+}
+
+.slick-dots li button::before {
+  display: none !important;
+}
+
+.slick-dots li.slick-active {
+  width: 24px !important;
+  opacity: 1 !important;
+  background-color: #ffffff !important;
+}
+
+/* --- Mega Menu Background Animations --- */
+
+@keyframes ring-pulse {
+  0% {
+    opacity: 0;
+    transform: scale(0.05);
+  }
+  15% {
+    opacity: 0.06;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+@keyframes particle-drift {
+  0%, 100% { transform: translate(0px, 0px); }
+  25%       { transform: translate(14px, -20px); }
+  75%       { transform: translate(-12px, 14px); }
+}
+
+.mega-bg-ring {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ring-pulse 10s cubic-bezier(0.2, 0, 0.8, 1) infinite;
+}
+
+.mega-bg-particle {
+  animation: particle-drift ease-in-out infinite;
 }
