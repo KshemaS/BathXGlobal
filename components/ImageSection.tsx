@@ -23,7 +23,7 @@ export default function ImageSection({ image, title }: Props) {
         className="absolute inset-0 h-full w-full object-cover"
       />
 
-      <div className="absolute inset-0 bg-black/30" />
+      <div className="absolute inset-0 bg-black/40" />
 
       {/* Heading — same bottom position as hero */}
       <div className="absolute bottom-10 left-1/2 -translate-x-1/2 w-full flex flex-col items-center gap-2 text-zinc-500">

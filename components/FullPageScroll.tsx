@@ -16,15 +16,25 @@ export default function FullPageScroll({ children, onComplete }: Props) {
   const sections = Children.toArray(children);
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(1);
+  const [axis, setAxis] = useState<"x" | "y">("x");
   const currentRef = useRef(0);
   const locked = useRef(false);
   const innerScrollHandler = useRef<((delta: number) => boolean) | null>(null);
   const completed = useRef(false);
+  const prevCurrent = useRef(0);
 
   const navigate = (next: number) => {
     if (locked.current || next < 0 || next >= sections.length) return;
     locked.current = true;
     const dir = next > currentRef.current ? 1 : -1;
+    
+    // Track previous current index
+    prevCurrent.current = currentRef.current;
+    
+    // Transition vertically only if we are past ContentSection (index >= 3)
+    const isVertical = currentRef.current >= 3 && next >= 3;
+    setAxis(isVertical ? "y" : "x");
+    
     currentRef.current = next;
     setDirection(dir);
     setCurrent(next);
@@ -53,21 +63,32 @@ export default function FullPageScroll({ children, onComplete }: Props) {
     };
 
     const onWheel = (e: WheelEvent) => {
-      if (completed.current) return;
+      if (completed.current) {
+        if (window.scrollY <= 5 && e.deltaY < 0) {
+          completed.current = false;
+          window.scrollTo(0, 0);
+          document.body.style.overflow = "hidden";
+        } else {
+          return;
+        }
+      }
       e.preventDefault();
       if (locked.current) return;
 
-      if (currentRef.current === sections.length - 1) {
-        if (innerScrollHandler.current) {
-          const handled = innerScrollHandler.current(e.deltaY);
-          if (handled) return;
-        }
-        if (e.deltaY > 0) { finish(); return; }
-        navigate(currentRef.current - 1);
-        return;
+      if (innerScrollHandler.current) {
+        const handled = innerScrollHandler.current(e.deltaY);
+        if (handled) return;
       }
 
-      navigate(e.deltaY > 0 ? currentRef.current + 1 : currentRef.current - 1);
+      if (e.deltaY > 0) {
+        if (currentRef.current === sections.length - 1) {
+          finish();
+        } else {
+          navigate(currentRef.current + 1);
+        }
+      } else {
+        navigate(currentRef.current - 1);
+      }
     };
 
     const onKey = (e: KeyboardEvent) => {
@@ -75,14 +96,31 @@ export default function FullPageScroll({ children, onComplete }: Props) {
       const isUp   = e.key === "ArrowUp"   || e.key === "PageUp";
       if (!isDown && !isUp) return;
 
-      if (currentRef.current === sections.length - 1 && innerScrollHandler.current) {
+      if (completed.current) {
+        if (window.scrollY <= 5 && isUp) {
+          completed.current = false;
+          window.scrollTo(0, 0);
+          document.body.style.overflow = "hidden";
+        } else {
+          return;
+        }
+      }
+
+      e.preventDefault();
+
+      if (innerScrollHandler.current) {
         const handled = innerScrollHandler.current(isDown ? 200 : -200);
-        if (!handled) {
-          if (isDown) finish();
-          else navigate(currentRef.current - 1);
+        if (handled) return;
+      }
+
+      if (isDown) {
+        if (currentRef.current === sections.length - 1) {
+          finish();
+        } else {
+          navigate(currentRef.current + 1);
         }
       } else {
-        navigate(isDown ? currentRef.current + 1 : currentRef.current - 1);
+        navigate(currentRef.current - 1);
       }
     };
 
@@ -95,13 +133,19 @@ export default function FullPageScroll({ children, onComplete }: Props) {
   }, [sections.length, onComplete]);
 
   const variants = {
-    enter:  (dir: number) => ({ x: `${dir * 100}%`  }),
-    center:                  ({ x: "0%"              }),
-    exit:   (dir: number) => ({ x: `${dir * -100}%` }),
+    enter: (dir: number) =>
+      axis === "y"
+        ? { y: `${dir * 100}%`, x: "0%" }
+        : { x: `${dir * 100}%`, y: "0%" },
+    center: { x: "0%", y: "0%" },
+    exit: (dir: number) =>
+      axis === "y"
+        ? { y: `${dir * -100}%`, x: "0%" }
+        : { x: `${dir * -100}%`, y: "0%" },
   };
 
   return (
-    <FpsContext.Provider value={{ registerInnerScroll, unregisterInnerScroll }}>
+    <FpsContext.Provider value={{ registerInnerScroll, unregisterInnerScroll, prevIndex: prevCurrent.current }}>
       <div className="relative h-screen w-full overflow-hidden">
         <AnimatePresence initial={false} custom={direction} mode="sync">
           <motion.div
