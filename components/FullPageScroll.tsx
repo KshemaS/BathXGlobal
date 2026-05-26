@@ -27,14 +27,14 @@ export default function FullPageScroll({ children, onComplete }: Props) {
     if (locked.current || next < 0 || next >= sections.length) return;
     locked.current = true;
     const dir = next > currentRef.current ? 1 : -1;
-    
+
     // Track previous current index
     prevCurrent.current = currentRef.current;
-    
+
     // Transition vertically only if we are past ContentSection (index >= 3)
     const isVertical = currentRef.current >= 3 && next >= 3;
     setAxis(isVertical ? "y" : "x");
-    
+
     currentRef.current = next;
     setDirection(dir);
     setCurrent(next);
@@ -93,7 +93,7 @@ export default function FullPageScroll({ children, onComplete }: Props) {
 
     const onKey = (e: KeyboardEvent) => {
       const isDown = e.key === "ArrowDown" || e.key === "PageDown";
-      const isUp   = e.key === "ArrowUp"   || e.key === "PageUp";
+      const isUp = e.key === "ArrowUp" || e.key === "PageUp";
       if (!isDown && !isUp) return;
 
       if (completed.current) {

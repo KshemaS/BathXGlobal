@@ -2,6 +2,9 @@
 
 import React, { useState } from "react";
 import { ArrowRight, Mail } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
+import logo from "@/app/assets/images/logo.svg";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -17,26 +20,32 @@ export default function Footer() {
   return (
     <footer className="relative bg-zinc-950 border-t border-white/5 py-20 px-6 md:px-16 text-white select-none">
       <div className="max-w-[84vw] mx-auto flex flex-col gap-16">
-        
+
         {/* MAIN COLUMNS */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-          
+
           {/* BRAND COLUMN */}
           <div className="flex flex-col gap-6 max-w-sm">
-            <h3 className="text-2xl font-semibold tracking-[0.25em] text-white">
-              B A T H - X
-            </h3>
-            <p className="text-zinc-400 text-xs tracking-wide leading-relaxed font-light">
+            <Link href="/">
+              <Image
+                src={logo}
+                alt="BathX"
+                height={50}
+                className="h-12 w-auto brightness-0 invert"
+                priority
+              />
+            </Link>
+            <p className="text-zinc-300 text-sm tracking-wide leading-relaxed font-light">
               Crafting architectural water systems, luxury shower sets, and custom bath fittings that bring emotions and minimalism into private sanctuaries.
             </p>
           </div>
 
           {/* QUICK LINKS */}
           <div className="flex flex-col gap-5">
-            <h4 className="text-[10px] uppercase tracking-[0.35em] text-zinc-500 font-medium">
+            <h4 className="text-xs uppercase tracking-[0.3em] text-zinc-400 font-semibold">
               Navigation
             </h4>
-            <ul className="flex flex-col gap-3.5 text-xs tracking-wide text-zinc-400 font-light">
+            <ul className="flex flex-col gap-3.5 text-sm tracking-wide text-zinc-300 font-light">
               <li>
                 <a href="#" className="hover:text-white transition-colors duration-300">Home</a>
               </li>
@@ -57,10 +66,10 @@ export default function Footer() {
 
           {/* CONTACT INFO */}
           <div className="flex flex-col gap-5">
-            <h4 className="text-[10px] uppercase tracking-[0.35em] text-zinc-500 font-medium">
+            <h4 className="text-xs uppercase tracking-[0.3em] text-zinc-400 font-semibold">
               Headquarters
             </h4>
-            <ul className="flex flex-col gap-3.5 text-xs tracking-wide text-zinc-400 leading-relaxed font-light">
+            <ul className="flex flex-col gap-3.5 text-sm tracking-wide text-zinc-300 leading-relaxed font-light">
               <li>
                 <span className="block text-white font-medium mb-1">Bath-x Flagship Store</span>
                 102 Luxury Boulevard, Design District, Milan, Italy
@@ -77,10 +86,10 @@ export default function Footer() {
 
           {/* NEWSLETTER SIGNUP */}
           <div className="flex flex-col gap-5">
-            <h4 className="text-[10px] uppercase tracking-[0.35em] text-zinc-500 font-medium">
+            <h4 className="text-xs uppercase tracking-[0.3em] text-zinc-400 font-semibold">
               Newsletter
             </h4>
-            <p className="text-zinc-400 text-xs tracking-wide leading-relaxed font-light">
+            <p className="text-zinc-300 text-sm tracking-wide leading-relaxed font-light">
               Subscribe to receive exclusive insights on architecture, design launches, and showroom events.
             </p>
             <form onSubmit={handleSubmit} className="relative flex items-center mt-2">
@@ -89,7 +98,7 @@ export default function Footer() {
                 placeholder="YOUR EMAIL"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full bg-transparent border-b border-white/20 py-3.5 text-xs tracking-widest text-white placeholder-zinc-500 focus:border-white focus:outline-none transition-colors duration-300 font-light"
+                className="w-full bg-transparent border-b border-white/20 py-3.5 text-sm tracking-widest text-white placeholder-zinc-500 focus:border-white focus:outline-none transition-colors duration-300 font-light"
                 required
               />
               <button
@@ -106,10 +115,10 @@ export default function Footer() {
 
         {/* MIDDLE SECTION - EDITORIAL SOCIALS */}
         <div className="w-full h-px bg-white/5" />
-        
+
         <div className="flex flex-wrap items-center justify-between gap-6">
           {/* SOCIAL LINKS */}
-          <div className="flex flex-wrap gap-x-8 gap-y-3 text-[10px] uppercase tracking-[0.3em] text-zinc-500 font-light">
+          <div className="flex flex-wrap gap-x-8 gap-y-3 text-xs uppercase tracking-[0.3em] text-zinc-400 font-light">
             <a href="#" className="hover:text-white transition-colors duration-300">Instagram</a>
             <span>/</span>
             <a href="#" className="hover:text-white transition-colors duration-300">Linkedin</a>
@@ -120,7 +129,7 @@ export default function Footer() {
           </div>
 
           {/* SECONDARY INFO */}
-          <div className="text-[10px] uppercase tracking-[0.25em] text-zinc-500 font-light">
+          <div className="text-xs uppercase tracking-[0.25em] text-zinc-400 font-light">
             Milan  /  London  /  New York  /  Dubai
           </div>
         </div>
@@ -128,7 +137,7 @@ export default function Footer() {
         {/* BOTTOM SECTION */}
         <div className="w-full h-px bg-white/5" />
 
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-[10px] uppercase tracking-[0.2em] text-zinc-500 font-light">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-xs uppercase tracking-[0.2em] text-zinc-400 font-light">
           <div>
             © {new Date().getFullYear()} Bath-x Global. All rights reserved.
           </div>

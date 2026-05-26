@@ -23,7 +23,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/60" />
 
       {/* CONTENT */}
-      <div className="relative z-10 flex h-full flex-col items-center justify-center">
+      <div className="relative z-10 flex h-full flex-col items-center justify-end pb-10">
         <motion.h1
           initial={{ y: "100px", opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -38,6 +38,7 @@ export default function HeroSection() {
             lg:text-8xl
             font-medium
             tracking-tight
+            pb-12
           "
         >
           The Luxury of Space
@@ -50,7 +51,7 @@ export default function HeroSection() {
             delay: 1,
             duration: 0.8,
           }}
-          className="absolute bottom-10 flex flex-col items-center gap-3"
+          className="flex flex-col items-center gap-3"
         >
           <span className="text-[10px] uppercase tracking-[0.4em] text-zinc-300">
             Scroll

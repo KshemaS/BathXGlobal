@@ -2,8 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import logo from "@/app/assets/images/logo.png";
-import Container from "./container";
+import Link from "next/link";
+import logo from "@/app/assets/images/logo.svg";
 import MegaMenuBg from "./MegaMenuBg";
 
 const navGroups = [
@@ -59,78 +59,74 @@ export default function Header() {
 
   return (
     <>
-        <header className="fixed top-0 left-0 w-full z-50 bg-black">
-          <div className="grid grid-cols-3 items-center py-6 px-6 md:px-12 lg:px-20">
-            <div className="flex items-center">
-              <button
-                onClick={() => setIsOpen((o) => !o)}
-                aria-label={isOpen ? "Close menu" : "Open menu"}
-                aria-expanded={isOpen}
-                className="flex flex-col gap-1.25 py-1 cursor-pointer"
-              >
-                <span
-                  className={`block h-px w-8 bg-white transition-all duration-300 ${
-                    isOpen ? "translate-y-1.5 rotate-45" : ""
+      <header className="fixed top-0 left-0 w-full z-50 bg-black">
+        <div className="grid grid-cols-3 items-center py-6 px-6 md:px-12 lg:px-20">
+          <div className="flex items-center">
+            <button
+              onClick={() => setIsOpen((o) => !o)}
+              aria-label={isOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isOpen}
+              className="flex flex-col gap-1.25 py-1 cursor-pointer"
+            >
+              <span
+                className={`block h-px w-8 bg-white transition-all duration-300 ${isOpen ? "translate-y-1.5 rotate-45" : ""
                   }`}
-                />
-                <span
-                  className={`block h-px bg-white transition-all duration-200 ${
-                    isOpen ? "w-0 opacity-0" : "w-4"
+              />
+              <span
+                className={`block h-px bg-white transition-all duration-200 ${isOpen ? "w-0 opacity-0" : "w-4"
                   }`}
-                />
-                <span
-                  className={`block h-px w-8 bg-white transition-all duration-300 ${
-                    isOpen ? "-translate-y-1.5 -rotate-45" : ""
+              />
+              <span
+                className={`block h-px w-8 bg-white transition-all duration-300 ${isOpen ? "-translate-y-1.5 -rotate-45" : ""
                   }`}
-                />
-              </button>
-            </div>
-
-            <div className="flex justify-center">
-              <a href="/" onClick={() => setIsOpen(false)}>
-                <Image
-                  src={logo}
-                  alt="BathX"
-                  height={50}
-                  className="h-12 w-auto brightness-0 invert"
-                  priority
-                />
-              </a>
-            </div>
-
-            <div className="flex justify-end">
-              <label className="flex items-center gap-2 border-b border-zinc-400 pb-1 cursor-text">
-                <input
-                  type="search"
-                  placeholder="Search"
-                  className="text-sm bg-transparent outline-none w-28 sm:w-36 md:w-60 placeholder:text-white text-white"
-                />
-                <svg
-                  className="w-4 h-4 text-white shrink-0"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={1.5}
-                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                  />
-                </svg>
-              </label>
-            </div>
+              />
+            </button>
           </div>
-          <div className="h-px bg-zinc-800" />
-        </header>
+
+          <div className="flex justify-center">
+            <Link href="/" onClick={() => setIsOpen(false)}>
+              <Image
+                src={logo}
+                alt="BathX"
+                height={50}
+                className="h-12 w-auto brightness-0 invert"
+                priority
+              />
+            </Link>
+          </div>
+
+          <div className="flex justify-end">
+            <label className="flex items-center gap-2 border-b border-zinc-400 pb-1 cursor-text">
+              <input
+                type="search"
+                placeholder="Search"
+                className="text-sm bg-transparent outline-none w-28 sm:w-36 md:w-60 placeholder:text-white text-white"
+              />
+              <svg
+                className="w-4 h-4 text-white shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                aria-hidden="true"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </label>
+          </div>
+        </div>
+        <div className="h-px bg-zinc-800" />
+      </header>
       <div
         aria-hidden={!isOpen}
-        className={`fixed inset-0 z-40 bg-black min-h-screen flex flex-col transition-all duration-700 ease-out ${
-          isOpen
+        className={`fixed inset-0 z-40 bg-black min-h-screen flex flex-col transition-all duration-700 ease-out ${isOpen
             ? "opacity-100 translate-y-0 pointer-events-auto"
             : "opacity-0 -translate-y-4 pointer-events-none"
-        }`}
+          }`}
       >
         <MegaMenuBg />
         <div className="h-16 shrink-0" />
@@ -144,17 +140,21 @@ export default function Header() {
                     {group.heading}
                   </p>
                   <ul className="space-y-3 md:space-y-4">
-                    {group.links.map((link) => (
-                      <li key={link}>
-                        <a
-                          href="#"
-                          className="block text-base md:text-lg text-zinc-300 hover:text-white transition-colors duration-200 font-light tracking-wide"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          {link}
-                        </a>
-                      </li>
-                    ))}
+                    {group.links.map((link) => {
+                      const isAbout = link === "About BathX";
+                      const href = isAbout ? "/about" : "#";
+                      return (
+                        <li key={link}>
+                          <Link
+                            href={href}
+                            className="block text-base md:text-lg text-zinc-300 hover:text-white transition-colors duration-200 font-light tracking-wide"
+                            onClick={() => setIsOpen(false)}
+                          >
+                            {link}
+                          </Link>
+                        </li>
+                      );
+                    })}
                   </ul>
                 </nav>
               ))}

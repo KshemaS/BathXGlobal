@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { MoveUpRight } from 'lucide-react';
 
 // Import local image assets
 import img1 from "@/app/assets/images/pexels-artbovich-6908370.jpg";
@@ -19,62 +20,40 @@ const blogs = [
   {
     title: "The Art of Minimalist Bath Space Design",
     image: img1,
+    date: "OCTOBER 12, 2025",
   },
   {
     title: "Selecting the Perfect Matt Black Finish",
     image: img2,
+    date: "NOVEMBER 08, 2025",
   },
   {
     title: "Integrating Smart Faucets in Modern Homes",
     image: img3,
+    date: "DECEMBER 15, 2025",
   },
   {
     title: "The Calm of Spa-Inspired Bathroom Suites",
     image: img4,
+    date: "JANUARY 22, 2026",
   },
   {
     title: "Terrazzo & Marble: A Timeless Material Match",
     image: img5,
+    date: "FEBRUARY 18, 2026",
   },
 ];
 
-interface ArrowProps {
-  onClick?: () => void;
-}
-
-function NextArrow({ onClick }: ArrowProps) {
-  return (
-    <button
-      onClick={onClick}
-      className="absolute -right-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 flex items-center justify-center rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white hover:bg-white hover:text-black hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl cursor-pointer"
-      aria-label="Next slide"
-    >
-      <ChevronRight className="w-5 h-5" />
-    </button>
-  );
-}
-
-function PrevArrow({ onClick }: ArrowProps) {
-  return (
-    <button
-      onClick={onClick}
-      className="absolute -left-4 top-1/2 -translate-y-1/2 z-30 w-12 h-12 flex items-center justify-center rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-white hover:bg-white hover:text-black hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl cursor-pointer"
-      aria-label="Previous slide"
-    >
-      <ChevronLeft className="w-5 h-5" />
-    </button>
-  );
-}
-
 export default function BlogSlider() {
+  const sliderRef = React.useRef<Slider>(null);
+
   const settings = {
     dots: true,
     infinite: true,
     speed: 800,
     slidesToShow: 3,
     slidesToScroll: 1,
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
+    arrows: false, 
     responsive: [
       {
         breakpoint: 1024,
@@ -86,27 +65,46 @@ export default function BlogSlider() {
         breakpoint: 640,
         settings: {
           slidesToShow: 1,
-          arrows: false,
         },
       },
     ],
   };
 
   return (
-    <section className="relative h-screen w-full flex flex-col justify-center bg-black px-6 md:px-16 overflow-hidden select-none">
-      {/* HEADER SECTION */}
-      <div className="w-full max-w-[84vw] mx-auto mb-10 md:mb-12">
-        <p className="text-[10px] uppercase tracking-[0.4em] text-zinc-500 mb-2.5 font-light">
-          Insights & Inspiration
-        </p>
-        <h2 className="text-4xl md:text-5xl font-medium text-white tracking-wide leading-tight">
-          Our Blog
-        </h2>
+    <section className="relative py-[60px] lg:py-[80px] 2xl:py-[120px] w-full flex flex-col justify-center bg-black px-6 md:px-16 overflow-hidden select-none">
+      {/* HEADER SECTION WITH TOP-RIGHT BUTTONS */}
+      <div className="w-full max-w-[84vw] mx-auto mb-10 md:mb-12 flex items-end justify-between">
+        <div>
+          <p className="text-[10px] uppercase tracking-[0.4em] text-zinc-500 mb-2.5 font-light">
+            Insights & Inspiration
+          </p>
+          <h2 className="text-4xl md:text-5xl font-medium text-white tracking-wide leading-tight">
+            Our Blog
+          </h2>
+        </div>
+
+        {/* NAVIGATION BUTTONS IN TOP-RIGHT */}
+        <div className="hidden sm:flex items-center gap-4 z-30">
+          <button
+            onClick={() => sliderRef.current?.slickPrev()}
+            className="w-16 h-16 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white hover:bg-white hover:text-black hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl cursor-pointer"
+            aria-label="Previous slide"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          <button
+            onClick={() => sliderRef.current?.slickNext()}
+            className="w-16 h-16 flex items-center justify-center rounded-full bg-white/5 border border-white/10 text-white hover:bg-white hover:text-black hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl cursor-pointer"
+            aria-label="Next slide"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
+        </div>
       </div>
 
       {/* CAROUSEL SLIDER WRAPPER */}
       <div className="w-full max-w-[84vw] mx-auto">
-        <Slider {...settings} className="blog-slick-slider">
+        <Slider ref={sliderRef} {...settings} className="blog-slick-slider">
           {blogs.map((blog, i) => (
             <div key={i} className="px-3 outline-none">
               <motion.div
@@ -126,11 +124,11 @@ export default function BlogSlider() {
                 {/* VIGNETTE GRADIENT */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent transition-all duration-500 group-hover:via-black/35" />
 
-                {/* ELEGANT HOVER INNER FRAME */}
-                <div className="absolute inset-4 border border-white/0 rounded-xl transition-all duration-500 ease-out group-hover:border-white/10 pointer-events-none" />
-
-                {/* BLOG TITLE */}
+                {/* BLOG TITLE & DATE */}
                 <div className="absolute bottom-6 left-6 right-6 z-10">
+                  <span className="text-[12px] uppercase tracking-[0.2em] text-zinc-200 mb-2.5 block font-light">
+                    {blog.date}
+                  </span>
                   <h3 className="text-xl md:text-2xl font-medium text-white leading-tight tracking-wide group-hover:text-zinc-200 transition-colors duration-300">
                     {blog.title}
                   </h3>
@@ -142,6 +140,17 @@ export default function BlogSlider() {
             </div>
           ))}
         </Slider>
+      </div>
+
+      {/* VIEW ALL BUTTON */}
+      <div className="w-full flex justify-center pt-30 z-30">
+        <a 
+          href="/blog" 
+          className="inline-flex items-center gap-2 px-8 py-3.5 rounded-full border border-white/10 bg-white/5 text-zinc-300 hover:text-black hover:bg-white hover:border-white transition-all duration-300 text-xs uppercase tracking-[0.25em] font-light shadow-lg active:scale-98 cursor-pointer group"
+        >
+          View All
+          <MoveUpRight className="w-3.5 h-3.5 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </a>
       </div>
     </section>
   );

@@ -104,25 +104,31 @@ export default function NewArrivalsSlider() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [progress, setProgress] = useState(0);
   const sliderRef = useRef<Slider | null>(null);
+  const progressStartTimeRef = useRef(Date.now());
 
-  // Sync autoplay progress timer at 60fps
+  // Sync autoplay progress timer using requestAnimationFrame for buttery smooth, continuous growth
   useEffect(() => {
-    let startTime = Date.now();
+    let animationFrameId: number;
     const duration = 5000; // 5 seconds autoplay duration
 
-    const timer = setInterval(() => {
-      const elapsed = Date.now() - startTime;
+    const updateProgress = () => {
+      const now = Date.now();
+      const elapsed = now - progressStartTimeRef.current;
       const pct = Math.min(100, (elapsed / duration) * 100);
       setProgress(pct);
 
       if (elapsed >= duration) {
         sliderRef.current?.slickNext();
+        progressStartTimeRef.current = now;
         setProgress(0);
       }
-    }, 16);
 
-    return () => clearInterval(timer);
-  }, [activeSlide]);
+      animationFrameId = requestAnimationFrame(updateProgress);
+    };
+
+    animationFrameId = requestAnimationFrame(updateProgress);
+    return () => cancelAnimationFrame(animationFrameId);
+  }, []);
 
   const settings = {
     dots: true,
@@ -136,6 +142,8 @@ export default function NewArrivalsSlider() {
     prevArrow: <PrevArrow />,
     beforeChange: (current: number, next: number) => {
       setActiveSlide(next);
+      setProgress(0);
+      progressStartTimeRef.current = Date.now();
     },
     appendDots: (dots: React.ReactNode) => (
       <div style={{ position: "absolute", bottom: "35px", width: "100%", zIndex: 25 }}>
