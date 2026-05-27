@@ -142,7 +142,9 @@ export default function Header() {
                   <ul className="space-y-3 md:space-y-4">
                     {group.links.map((link) => {
                       const isAbout = link === "About BathX";
-                      const href = isAbout ? "/about" : "#";
+                      const isContact = link === "Book a Consultation" || link === "Customer Support";
+                      const isCategories = link === "Collections";
+                      const href = isAbout ? "/about" : isContact ? "/contact" : isCategories ? "/categories" : "#";
                       return (
                         <li key={link}>
                           <Link

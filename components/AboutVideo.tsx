@@ -17,7 +17,7 @@ export default function AboutVideo() {
       {/* CINEMATIC VIDEO DISPLAY - Luxury Framed theater box layout */}
       <section className="relative py-[60px] lg:py-[80px] 2xl:py-[120px] px-6 md:px-16 lg:px-24 max-w-[1600px] mx-auto z-10">
         
-        <div className="flex justify-between items-end mb-10 max-w-[1440px] mx-auto">
+        <div className="flex justify-between items-end mb-10 max-w-[1600px] mx-auto">
           <div>
             <span className="text-[12px] tracking-[0.3em] font-medium text-amber-500 uppercase block mb-3">
               03 // NARRATIVE
@@ -28,7 +28,7 @@ export default function AboutVideo() {
           </div>
         </div>
 
-        <div className="relative w-full max-w-[1440px] h-[600px] mx-auto aspect-video rounded-md overflow-hidden bg-zinc-950/40 shadow-2xl group">
+        <div className="relative w-full max-w-[1600px] h-[600px] mx-auto aspect-video rounded-md overflow-hidden bg-zinc-950/40 shadow-2xl group">
           
           <div className="relative w-full h-[600px] overflow-hidden rounded-sm">
             <Image

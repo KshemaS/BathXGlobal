@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import Slider from "react-slick";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";

@@ -122,7 +122,7 @@ export default function AboutPillars() {
         </div>
 
         {/* Active Slide Card Panel */}
-        <div className="relative w-full max-w-[1440px] h-auto min-h-[520px]">
+        <div className="relative w-full max-w-[1600px] h-auto min-h-[520px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeSlide}

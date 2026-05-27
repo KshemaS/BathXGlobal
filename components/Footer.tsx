@@ -47,19 +47,19 @@ export default function Footer() {
             </h4>
             <ul className="flex flex-col gap-3.5 text-sm tracking-wide text-zinc-300 font-light">
               <li>
-                <a href="#" className="hover:text-white transition-colors duration-300">Home</a>
+                <Link href="/" className="hover:text-white transition-colors duration-300">Home</Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors duration-300">Collections</a>
+                <Link href="#" className="hover:text-white transition-colors duration-300">Collections</Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors duration-300">New Arrivals</a>
+                <Link href="#" className="hover:text-white transition-colors duration-300">New Arrivals</Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors duration-300">Showrooms</a>
+                <Link href="/about" className="hover:text-white transition-colors duration-300">About Us</Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors duration-300">About Us</a>
+                <Link href="/contact" className="hover:text-white transition-colors duration-300">Contact Us</Link>
               </li>
             </ul>
           </div>

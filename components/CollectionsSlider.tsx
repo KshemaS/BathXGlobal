@@ -30,11 +30,11 @@ export default function CollectionsSlider() {
   const settings = {
     dots: false,
     infinite: true,
-    speed: 800,
+    speed: 1000,
     slidesToShow: 2, // Show 2 cards on desktop for maximum focus and scale
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 2000,
     arrows: false,
     pauseOnHover: true,
     responsive: [
@@ -55,25 +55,6 @@ export default function CollectionsSlider() {
 
   return (
     <div className="relative w-full z-20 group/slider">
-
-      {/* CUSTOM LUXURY NAVIGATION BUTTONS */}
-      <div className="absolute -top-16 right-4 flex items-center gap-3 z-30 opacity-0 group-hover/slider:opacity-100 transition-opacity duration-500">
-        <button
-          onClick={() => sliderRef.current?.slickPrev()}
-          className="w-10 h-10 rounded-full border border-white/10 bg-black/40 backdrop-blur-sm text-white flex items-center justify-center hover:bg-white hover:text-black hover:border-white transition-all duration-300 cursor-pointer"
-          aria-label="Previous Collection"
-        >
-          <ChevronLeft className="w-5 h-5" />
-        </button>
-        <button
-          onClick={() => sliderRef.current?.slickNext()}
-          className="w-10 h-10 rounded-full border border-white/10 bg-black/40 backdrop-blur-sm text-white flex items-center justify-center hover:bg-white hover:text-black hover:border-white transition-all duration-300 cursor-pointer"
-          aria-label="Next Collection"
-        >
-          <ChevronRight className="w-5 h-5" />
-        </button>
-      </div>
-
       {/* SLICK CAROUSEL */}
       <Slider ref={sliderRef} {...settings} className="collections-slick-slider px-1">
         {collections.map((col, idx) => (
@@ -104,7 +85,23 @@ export default function CollectionsSlider() {
           </div>
         ))}
       </Slider>
-
+        {/* CUSTOM LUXURY NAVIGATION BUTTONS */}
+      <div className="flex items-center gap-3 z-30 pt-4 absolute right-0">
+        <button
+          onClick={() => sliderRef.current?.slickPrev()}
+          className="w-16 h-16 rounded-full border border-white/50 bg-black/40 backdrop-blur-sm text-white flex items-center justify-center hover:bg-white hover:text-black hover:border-white transition-all duration-300 cursor-pointer"
+          aria-label="Previous Collection"
+        >
+          <ChevronLeft className="w-6 h-6" />
+        </button>
+        <button
+          onClick={() => sliderRef.current?.slickNext()}
+          className="w-16 h-16 rounded-full border border-white/50 bg-black/40 backdrop-blur-sm text-white flex items-center justify-center hover:bg-white hover:text-black hover:border-white transition-all duration-300 cursor-pointer"
+          aria-label="Next Collection"
+        >
+          <ChevronRight className="w-6 h-6" />
+        </button>
+      </div>
     </div>
   );
 }

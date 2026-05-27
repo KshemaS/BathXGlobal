@@ -54,7 +54,7 @@ export default function AboutShowrooms() {
   return (
     <section className="relative py-[60px] lg:py-[80px] 2xl:py-[120px] px-6 md:px-16 lg:px-24 max-w-[1600px] mx-auto z-10">
       
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-20 max-w-[1440px] mx-auto gap-6">
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-20 max-w-[1600px] mx-auto gap-6">
         <div>
           <span className="text-[12px] tracking-[0.3em] font-medium text-amber-500 uppercase block mb-3 font-mono">
             04 // EXPERIENCE
@@ -68,7 +68,7 @@ export default function AboutShowrooms() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-stretch max-w-[1440px] mx-auto">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-stretch max-w-[1600px] mx-auto">
         
         {/* LEFT COLUMN: THE INTERACTIVE CANVAS (7 cols) */}
         <div className="lg:col-span-7 flex flex-col justify-between">
