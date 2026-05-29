@@ -11,6 +11,10 @@
   --color-foreground: var(--foreground);
   --font-sans: "Hanken Grotesk", sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Custom screen breakpoints */
+  --breakpoint-3xl: 1600px;
+  --breakpoint-4xl: 1920px;
 }
 
 body {

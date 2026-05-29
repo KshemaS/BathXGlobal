@@ -93,7 +93,7 @@ export default function ContentSection() {
         <div className="absolute inset-0 bg-black flex items-center">
 
           {/* HORIZONTAL FLEX ROW: Title on Left, Slider on Right (via standard lg:flex-row) */}
-          <div className="w-full mx-auto px-6 md:px-16 lg:px-24 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16 z-20 pointer-events-none">
+          <div className="w-full max-w-[1600px] mx-auto px-6 md:px-16 lg:px-24 4xl:px-0 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16 z-20 pointer-events-none">
 
             {/* COLUMN: TITLE (Left side on desktop) */}
             <motion.div
@@ -104,7 +104,7 @@ export default function ContentSection() {
               }}
               className="w-full lg:w-[32%] flex flex-col items-center lg:items-start text-center lg:text-left select-none pointer-events-auto shrink-0 z-30"
             >
-              <h2 className="text-4xl md:text-5xl lg:text-[60px] xl:text-[80px] font-medium text-white mb-6 leading-tight tracking-tight">
+              <h2 className="text-4xl md:text-5xl lg:text-[60px] 3xl:text-[80px] font-medium text-white mb-6 leading-tight tracking-tight">
                 Our Collections
               </h2>
 

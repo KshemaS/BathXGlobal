@@ -41,7 +41,7 @@ export default function ContactForm() {
   };
 
   return (
-    <section className="relative px-6 md:px-16 lg:px-24 py-12 max-w-[1600px] mx-auto z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+    <section className="relative px-6 md:px-16 lg:px-24 4xl:px-0 py-12 max-w-[1600px] mx-auto z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
       
       {/* COLUMN 1: DYNAMIC INQUIRY FORM */}
       <div className="lg:col-span-7">

@@ -42,8 +42,8 @@ const ATELIERS = [
 
 export default function ContactDirectory() {
   return (
-    <section className="relative px-6 md:px-16 lg:px-24 py-20 bg-zinc-950 border-t border-white/5 z-10">
-      <div className="max-w-[1600px] mx-auto">
+    <section className="relative py-20 bg-zinc-950 border-t border-white/5 z-10">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-16 lg:px-24 4xl:px-0">
         
         <div className="mb-12 md:mb-16">
           <span className="text-[10px] uppercase tracking-[0.4em] text-zinc-500 mb-3 block font-light">

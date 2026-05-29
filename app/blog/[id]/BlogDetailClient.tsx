@@ -60,7 +60,7 @@ export default function BlogDetailClient({ post, relatedPosts }: BlogDetailClien
           </div>
 
           {/* CONTENT INNER WRAPPER */}
-          <div className="relative w-full max-w-[1600px] mx-auto px-6 md:px-16 lg:px-24 pb-16 z-20">
+          <div className="relative w-full max-w-[1600px] mx-auto px-6 md:px-16 lg:px-24 4xl:px-0 pb-16 z-20">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
@@ -110,7 +110,7 @@ export default function BlogDetailClient({ post, relatedPosts }: BlogDetailClien
         </section>
 
         {/* EDITORIAL CONTENT SECTION */}
-        <section className="relative px-6 md:px-16 lg:px-24 py-16 md:py-24 max-w-[1600px] mx-auto z-10 grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <section className="relative px-6 md:px-16 lg:px-24 4xl:px-0 py-16 md:py-24 max-w-[1600px] mx-auto z-10 grid grid-cols-1 lg:grid-cols-12 gap-12">
           
           {/* ARTICLE BODY */}
           <div className="lg:col-span-8 max-w-3xl">
@@ -272,8 +272,8 @@ export default function BlogDetailClient({ post, relatedPosts }: BlogDetailClien
         </section>
 
         {/* RELATED READS SECTION */}
-        <section className="relative px-6 md:px-16 lg:px-24 py-20 lg:py-28 bg-zinc-950 border-t border-white/5 z-10">
-          <div className="max-w-[1600px] mx-auto">
+        <section className="relative py-20 lg:py-28 bg-zinc-950 border-t border-white/5 z-10">
+          <div className="max-w-[1600px] mx-auto px-6 md:px-16 lg:px-24 4xl:px-0">
             
             {/* Section Header */}
             <div className="mb-12 md:mb-16">

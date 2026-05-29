@@ -4,47 +4,14 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@/app/assets/images/logo.svg";
-import MegaMenuBg from "./MegaMenuBg";
+import MegaMenuSlider from "./MegaMenuSlider";
 
-const navGroups = [
-  {
-    heading: "Products",
-    links: [
-      "Faucets & Taps",
-      "Bathtubs",
-      "Thermostatic Showers",
-      "Sanitaryware",
-      "Bathroom Accessories",
-    ],
-  },
-  {
-    heading: "Explore",
-    links: [
-      "Collections",
-      "BathX Journal",
-      "Lookbook",
-      "Trade & Specification",
-    ],
-  },
-  {
-    heading: "Company",
-    links: [
-      "About BathX",
-      "Showrooms",
-      "Press & Media",
-      "Sustainability",
-      "Careers",
-    ],
-  },
-  {
-    heading: "Support",
-    links: [
-      "Find a Dealer",
-      "Book a Consultation",
-      "Customer Support",
-      "Warranties",
-    ],
-  },
+const menuLinks = [
+  { label: "Home", href: "/", num: "01" },
+  { label: "Collections", href: "/categories", num: "02" },
+  { label: "About Us", href: "/about", num: "03" },
+  { label: "Journal", href: "/blog", num: "04" },
+  { label: "Contact Us", href: "/contact", num: "05" },
 ];
 
 export default function Header() {
@@ -60,7 +27,7 @@ export default function Header() {
   return (
     <>
       <header className="fixed top-0 left-0 w-full z-50 bg-black">
-        <div className="grid grid-cols-3 items-center py-6 px-6 md:px-12 lg:px-20">
+        <div className="grid grid-cols-3 items-center py-6 px-6 md:px-12 lg:px-20 4xl:px-0 max-w-[1600px] mx-auto">
           <div className="flex items-center">
             <button
               onClick={() => setIsOpen((o) => !o)}
@@ -128,53 +95,55 @@ export default function Header() {
             : "opacity-0 -translate-y-4 pointer-events-none"
           }`}
       >
-        <MegaMenuBg />
         <div className="h-16 shrink-0" />
         <div className="h-px bg-zinc-800 shrink-0" />
-        <div className="flex-1 overflow-y-auto">
-          <div className="max-w-7xl mx-auto px-6 md:px-12 lg:px-16 py-14 md:py-20">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-10 md:gap-16">
-              {navGroups.map((group) => (
-                <nav key={group.heading}>
-                  <p className="text-xs uppercase tracking-[0.2em] text-zinc-500 mb-6 font-medium">
-                    {group.heading}
-                  </p>
-                  <ul className="space-y-3 md:space-y-4">
-                    {group.links.map((link) => {
-                      const isAbout = link === "About BathX";
-                      const isContact = link === "Book a Consultation" || link === "Customer Support";
-                      const isCategories = link === "Collections";
-                      const href = isAbout ? "/about" : isContact ? "/contact" : isCategories ? "/categories" : "#";
-                      return (
-                        <li key={link}>
-                          <Link
-                            href={href}
-                            className="block text-base md:text-lg text-zinc-300 hover:text-white transition-colors duration-200 font-light tracking-wide"
-                            onClick={() => setIsOpen(false)}
-                          >
-                            {link}
-                          </Link>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </nav>
-              ))}
+        <div className="flex-1 overflow-y-auto flex flex-col justify-center">
+          <div className="w-full max-w-[1600px] 4xl:px-0 mx-auto px-6 md:px-12 lg:px-20 py-10 md:py-16">
+            
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+              {/* LEFT COLUMN: PRIMARY PAGES */}
+              <nav className="lg:col-span-5 flex flex-col justify-center">
+                <ul className="space-y-6 md:space-y-8 text-left">
+                  {menuLinks.map((item) => (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        onClick={() => setIsOpen(false)}
+                        className="group flex items-baseline gap-6 cursor-pointer w-fit"
+                      >
+                        <span className="text-xs font-mono tracking-widest text-zinc-500 font-light transition-colors duration-300 group-hover:text-amber-500">
+                          {item.num}
+                        </span>
+                        <span className="text-3xl md:text-5xl lg:text-6xl font-light text-zinc-300 transition-all duration-500 ease-out group-hover:text-white group-hover:italic group-hover:pl-3">
+                          {item.label}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+
+              {/* RIGHT COLUMN: CINEMATIC SHOWCASE SLIDER */}
+              <div className="lg:col-span-7 hidden lg:block pr-3 pb-3">
+                <MegaMenuSlider isOpen={isOpen} />
+              </div>
             </div>
-            <div className="mt-16 md:mt-24 pt-10 border-t border-zinc-800 grid grid-cols-1 sm:grid-cols-3 gap-8">
+
+            {/* LOWER EDITORIAL DETAILS */}
+            <div className="mt-12 md:mt-16 pt-8 border-t border-zinc-900 grid grid-cols-1 sm:grid-cols-3 gap-8">
               <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-zinc-500 mb-3 font-medium">
-                  Flagship Showroom
+                <p className="text-xs uppercase tracking-[0.2em] text-zinc-500 mb-3 font-semibold">
+                  Flagship Studio
                 </p>
                 <p className="text-sm text-zinc-300 font-light">
                   123 Design District, Dubai, UAE
                 </p>
-                <p className="text-sm text-zinc-500 mt-1 font-light">
+                <p className="text-xs text-zinc-500 mt-1 font-light">
                   Mon – Sat: 10:00 – 19:00
                 </p>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-zinc-500 mb-3 font-medium">
+                <p className="text-xs uppercase tracking-[0.2em] text-zinc-500 mb-3 font-semibold">
                   Contact
                 </p>
                 <a
@@ -185,7 +154,7 @@ export default function Header() {
                 </a>
               </div>
               <div>
-                <p className="text-xs uppercase tracking-[0.2em] text-zinc-500 mb-3 font-medium">
+                <p className="text-xs uppercase tracking-[0.2em] text-zinc-500 mb-3 font-semibold">
                   Follow
                 </p>
                 <div className="flex gap-5">
@@ -201,6 +170,7 @@ export default function Header() {
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </div>

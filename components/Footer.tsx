@@ -18,8 +18,8 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-zinc-950 border-t border-white/5 py-20 px-6 md:px-16 text-white select-none">
-      <div className="max-w-[84vw] mx-auto flex flex-col gap-16">
+    <footer className="relative bg-zinc-950 border-t border-white/5 py-20 px-6 md:px-16 4xl:px-0 text-white select-none">
+      <div className="max-w-[84vw] 4xl:max-w-[1600px] mx-auto flex flex-col gap-16">
 
         {/* MAIN COLUMNS */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
@@ -50,13 +50,13 @@ export default function Footer() {
                 <Link href="/" className="hover:text-white transition-colors duration-300">Home</Link>
               </li>
               <li>
-                <Link href="#" className="hover:text-white transition-colors duration-300">Collections</Link>
-              </li>
-              <li>
-                <Link href="#" className="hover:text-white transition-colors duration-300">New Arrivals</Link>
+                <Link href="/categories" className="hover:text-white transition-colors duration-300">Collections</Link>
               </li>
               <li>
                 <Link href="/about" className="hover:text-white transition-colors duration-300">About Us</Link>
+              </li>
+              <li>
+                <Link href="/blog" className="hover:text-white transition-colors duration-300">Journal</Link>
               </li>
               <li>
                 <Link href="/contact" className="hover:text-white transition-colors duration-300">Contact Us</Link>

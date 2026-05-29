@@ -43,7 +43,7 @@ export default function BlogListingPage() {
           </div>
 
           {/* CONTENT INNER WRAPPER */}
-          <div className="relative w-full max-w-[1600px] mx-auto px-6 md:px-16 lg:px-24 pb-16 z-20">
+          <div className="relative w-full max-w-[1600px] mx-auto px-6 md:px-16 lg:px-24 4xl:px-0 pb-16 z-20">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
@@ -66,7 +66,7 @@ export default function BlogListingPage() {
         </section>
 
         {/* BLOG POSTS GRID SECTION */}
-        <section className="relative px-6 md:px-16 lg:px-24 pt-20 lg:pt-28 pb-20 max-w-[1600px] mx-auto z-10">
+        <section className="relative px-6 md:px-16 lg:px-24 4xl:px-0 pt-20 lg:pt-28 pb-20 max-w-[1600px] mx-auto z-10">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentPage}
@@ -135,7 +135,7 @@ export default function BlogListingPage() {
         </section>
 
         {/* PAGINATION SECTION */}
-        <section className="relative px-6 md:px-16 lg:px-24 pb-28 max-w-[1600px] mx-auto z-10 border-t border-white/5 pt-12">
+        <section className="relative px-6 md:px-16 lg:px-24 4xl:px-0 pb-28 max-w-[1600px] mx-auto z-10 border-t border-white/5 pt-12">
           <div className="flex items-center justify-between">
             
             {/* Previous Page Trigger */}

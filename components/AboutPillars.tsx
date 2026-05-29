@@ -69,7 +69,7 @@ export default function AboutPillars() {
 
   return (
     <section className="bg-zinc-950/30 py-[60px] lg:py-[80px] 2xl:py-[120px] border-y border-zinc-900/60 relative z-10 backdrop-blur-md w-full">
-      <div className="max-w-[1600px] mx-auto px-6 md:px-16 lg:px-24 w-full flex flex-col items-center">
+      <div className="max-w-[1600px] mx-auto px-6 md:px-16 lg:px-24 4xl:px-0 w-full flex flex-col items-center">
 
         {/* Header section */}
         <div className="text-center max-w-3xl mx-auto mb-16">

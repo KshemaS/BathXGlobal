@@ -71,9 +71,9 @@ export default function BlogSlider() {
   };
 
   return (
-    <section className="relative py-[60px] lg:py-[80px] 2xl:py-[120px] w-full flex flex-col justify-center bg-black px-6 md:px-16 overflow-hidden select-none">
+    <section className="relative py-[60px] lg:py-[80px] 2xl:py-[120px] w-full flex flex-col justify-center bg-black px-6 md:px-16 4xl:px-0 overflow-hidden select-none">
       {/* HEADER SECTION WITH TOP-RIGHT BUTTONS */}
-      <div className="w-full max-w-[84vw] mx-auto mb-10 md:mb-12 flex items-end justify-between">
+      <div className="w-full max-w-[84vw] 4xl:max-w-[1600px] mx-auto mb-10 md:mb-12 flex items-end justify-between">
         <div>
           <p className="text-[10px] uppercase tracking-[0.4em] text-zinc-500 mb-2.5 font-light">
             Insights & Inspiration
@@ -103,7 +103,7 @@ export default function BlogSlider() {
       </div>
 
       {/* CAROUSEL SLIDER WRAPPER */}
-      <div className="w-full max-w-[84vw] mx-auto">
+      <div className="w-full max-w-[84vw] 4xl:max-w-[1600px] mx-auto">
         <Slider ref={sliderRef} {...settings} className="blog-slick-slider">
           {blogs.map((blog, i) => (
             <div key={i} className="px-3 outline-none">

@@ -33,7 +33,8 @@ export default function HeroSection() {
           }}
           className="
             text-white
-            text-5xl
+            3xl:text-5xl
+            xl:text-6xl
             md:text-7xl
             lg:text-8xl
             font-medium

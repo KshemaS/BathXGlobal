@@ -52,7 +52,7 @@ export default function AboutShowrooms() {
   const [selectedShowroom, setSelectedShowroom] = useState(0);
 
   return (
-    <section className="relative py-[60px] lg:py-[80px] 2xl:py-[120px] px-6 md:px-16 lg:px-24 max-w-[1600px] mx-auto z-10">
+    <section className="relative py-[60px] lg:py-[80px] 2xl:py-[120px] px-6 md:px-16 lg:px-24 4xl:px-0 max-w-[1600px] mx-auto z-10">
       
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-20 max-w-[1600px] mx-auto gap-6">
         <div>

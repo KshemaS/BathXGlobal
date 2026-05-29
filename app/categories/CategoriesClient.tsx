@@ -190,7 +190,7 @@ export default function CategoriesClient() {
         <div className="absolute top-[80vh] -right-[10vw] w-[50vw] h-[50vw] bg-zinc-500/5 rounded-full blur-[180px] pointer-events-none z-0" />
 
         {/* HERO HEADER */}
-        <section className="relative px-6 md:px-16 lg:px-24 pb-12 pt-8 max-w-[1600px] mx-auto z-10">
+        <section className="relative px-6 md:px-16 lg:px-24 4xl:px-0 pb-12 pt-8 max-w-[1600px] mx-auto z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -200,7 +200,7 @@ export default function CategoriesClient() {
             <span className="text-[10px] uppercase tracking-[0.4em] text-zinc-400 mb-4 block font-medium">
               Curated Ateliers
             </span>
-            <h1 className="text-4xl md:text-5xl lg:text-[76px] font-medium tracking-tight leading-none text-white mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl 3xl:text-[76px] font-medium tracking-tight leading-none text-white mb-6">
               Our Collections
             </h1>
             <p className="text-zinc-400 font-light text-base md:text-lg leading-relaxed tracking-wide">
@@ -210,7 +210,7 @@ export default function CategoriesClient() {
         </section>
 
         {/* DYNAMIC TWO-COLUMN FILTERING SYSTEM */}
-        <section className="relative px-6 md:px-16 lg:px-24 pb-28 max-w-[1600px] mx-auto z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+        <section className="relative px-6 md:px-16 lg:px-24 4xl:px-0 pb-28 max-w-[1600px] mx-auto z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           
           {/* COLUMN 1: STICKY FILTERS PANEL */}
           <div className="lg:col-span-3">

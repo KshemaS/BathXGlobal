@@ -21,7 +21,7 @@ const collections = [
 
 export default function CollectionsGrid() {
   return (
-    <div className="w-full max-w-[88vw] mx-auto px-4 md:px-8 z-20">
+    <div className="w-full max-w-[88vw] 4xl:max-w-[1600px] mx-auto px-4 md:px-8 4xl:px-0 z-20">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         {collections.map((col, i) => (
           <CollectionCard
