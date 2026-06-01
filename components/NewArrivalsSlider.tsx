@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef } from "react";
 import Slider from "react-slick";
 import Image from "next/image";
  import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -33,13 +33,10 @@ const slides = [
 
 interface ArrowProps {
   onClick?: () => void;
-  progress?: number;
 }
 
-function NextArrow({ onClick, progress = 0 }: ArrowProps) {
+function NextArrow({ onClick }: ArrowProps) {
   const radius = 26;
-  const circumference = 2 * Math.PI * radius;
-  const strokeDashoffset = circumference - (progress / 100) * circumference;
 
   return (
     <button
@@ -47,27 +44,15 @@ function NextArrow({ onClick, progress = 0 }: ArrowProps) {
       className="absolute right-6 top-1/2 -translate-y-1/2 z-30 w-14 h-14 flex items-center justify-center rounded-full bg-black/30 backdrop-blur-md text-white hover:bg-white hover:text-black hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl cursor-pointer"
       aria-label="Next slide"
     >
-      {/* CIRCULAR SVG PROGRESS RING */}
-      <svg className="absolute inset-0 w-full h-full -rotate-90 pointer-events-none">
+      {/* STATIC OUTLINE CIRCLE */}
+      <svg className="absolute inset-0 w-full h-full pointer-events-none">
         <circle
           cx="28"
           cy="28"
           r={radius}
-          className="stroke-white/10"
+          className="stroke-white/15"
           strokeWidth="2"
           fill="transparent"
-        />
-        <circle
-          cx="28"
-          cy="28"
-          r={radius}
-          className="stroke-white"
-          strokeWidth="2"
-          fill="transparent"
-          strokeDasharray={circumference}
-          strokeDashoffset={strokeDashoffset}
-          strokeLinecap="round"
-          style={{ transition: "stroke-dashoffset 16ms linear" }}
         />
       </svg>
       <ChevronRight className="w-5 h-5 z-10" />
@@ -102,48 +87,21 @@ function PrevArrow({ onClick }: ArrowProps) {
 
 export default function NewArrivalsSlider() {
   const [activeSlide, setActiveSlide] = useState(0);
-  const [progress, setProgress] = useState(0);
   const sliderRef = useRef<Slider | null>(null);
-  const progressStartTimeRef = useRef(Date.now());
-
-  // Sync autoplay progress timer using requestAnimationFrame for buttery smooth, continuous growth
-  useEffect(() => {
-    let animationFrameId: number;
-    const duration = 5000; // 5 seconds autoplay duration
-
-    const updateProgress = () => {
-      const now = Date.now();
-      const elapsed = now - progressStartTimeRef.current;
-      const pct = Math.min(100, (elapsed / duration) * 100);
-      setProgress(pct);
-
-      if (elapsed >= duration) {
-        sliderRef.current?.slickNext();
-        progressStartTimeRef.current = now;
-        setProgress(0);
-      }
-
-      animationFrameId = requestAnimationFrame(updateProgress);
-    };
-
-    animationFrameId = requestAnimationFrame(updateProgress);
-    return () => cancelAnimationFrame(animationFrameId);
-  }, []);
 
   const settings = {
     dots: true,
     infinite: true,
     fade: true, // Clean cross-fade transitions
-    autoplay: false, // Handled custom by our React effect
+    autoplay: true,
+    autoplaySpeed: 5000,
     speed: 1200,
     slidesToShow: 1,
     slidesToScroll: 1,
-    nextArrow: <NextArrow progress={progress} />,
+    nextArrow: <NextArrow />,
     prevArrow: <PrevArrow />,
     beforeChange: (current: number, next: number) => {
       setActiveSlide(next);
-      setProgress(0);
-      progressStartTimeRef.current = Date.now();
     },
     appendDots: (dots: React.ReactNode) => (
       <div style={{ position: "absolute", bottom: "35px", width: "100%", zIndex: 25 }}>
@@ -184,7 +142,7 @@ export default function NewArrivalsSlider() {
           transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
           className="absolute bottom-28 md:bottom-32 left-0 right-0 z-20 flex flex-col items-center justify-center text-center px-6 pointer-events-none"
         >
-          <p className="text-[18px] uppercase tracking-[0.4em] text-zinc-200/90 mb-3 font-light drop-shadow-md">
+          <p className="text-[14px] lg:text-[16px] 2xl:text-[18px] uppercase tracking-wider text-zinc-200/90 mb-3 font-light drop-shadow-md">
             New Arrivals
           </p>
           <h2 className="text-4xl md:text-6xl font-medium text-white tracking-wide leading-tight drop-shadow-lg max-w-3xl">

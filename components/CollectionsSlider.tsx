@@ -54,7 +54,7 @@ export default function CollectionsSlider() {
   };
 
   return (
-    <div className="relative w-full z-20 group/slider">
+    <div className="relative w-full z-20 group/slider overflow-hidden">
       {/* SLICK CAROUSEL */}
       <Slider ref={sliderRef} {...settings} className="collections-slick-slider px-1">
         {collections.map((col, idx) => (

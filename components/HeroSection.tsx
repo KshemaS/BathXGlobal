@@ -31,16 +31,7 @@ export default function HeroSection() {
             duration: 1.2,
             ease,
           }}
-          className="
-            text-white
-            3xl:text-5xl
-            xl:text-6xl
-            md:text-7xl
-            lg:text-8xl
-            font-medium
-            tracking-tight
-            pb-12
-          "
+          className="text-[40px] md:text-[44px] lg:text-[50px] font-medium text-white leading-none tracking-normal pb-10 text-center px-6"
         >
           The Luxury of Space
         </motion.h1>

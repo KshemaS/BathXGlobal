@@ -71,9 +71,10 @@ export default function ContentSection() {
   useEffect(() => {
     registerInnerScroll((delta: number) => {
       const cur = progress.get();
+      const smooth = smoothProgress.get();
 
-      if (cur >= 1 && delta > 0) return false;
-      if (cur <= 0 && delta < 0) return false;
+      if (cur >= 1 && smooth >= 0.995 && delta > 0) return false;
+      if (cur <= 0 && smooth <= 0.005 && delta < 0) return false;
 
       progress.set(
         Math.min(1, Math.max(0, cur + delta / SCROLL_RANGE))
@@ -83,7 +84,7 @@ export default function ContentSection() {
     });
 
     return () => unregisterInnerScroll();
-  }, [registerInnerScroll, unregisterInnerScroll, progress]);
+  }, [registerInnerScroll, unregisterInnerScroll, progress, smoothProgress]);
 
   return (
     <section className="relative h-[260vh] bg-black">
@@ -93,7 +94,7 @@ export default function ContentSection() {
         <div className="absolute inset-0 bg-black flex items-center">
 
           {/* HORIZONTAL FLEX ROW: Title on Left, Slider on Right (via standard lg:flex-row) */}
-          <div className="w-full max-w-[1600px] mx-auto px-6 md:px-16 lg:px-24 4xl:px-0 flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16 z-20 pointer-events-none">
+          <div className="w-full max-w-[1600px] mx-auto flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16 z-20 pointer-events-none">
 
             {/* COLUMN: TITLE (Left side on desktop) */}
             <motion.div
