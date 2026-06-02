@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ArrowRight, Mail } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,6 +8,11 @@ import logo from "@/app/assets/images/logo.svg";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
+  const [currentYear, setCurrentYear] = useState(2026);
+
+  useEffect(() => {
+    setCurrentYear(new Date().getFullYear());
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,7 +23,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="relative bg-zinc-950 border-t border-white/5 py-20 px-6 md:px-16 4xl:px-0 text-white select-none">
+    <footer className="relative bg-zinc-950 border-t border-white/5 py-20 px-[16px] md:px-16 4xl:px-0 text-white select-none">
       <div className="max-w-[84vw] 4xl:max-w-[1600px] mx-auto flex flex-col gap-16">
 
         {/* MAIN COLUMNS */}
@@ -139,7 +144,7 @@ export default function Footer() {
 
         <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-xs uppercase tracking-[0.2em] text-zinc-400 font-light">
           <div>
-            © {new Date().getFullYear()} Bath-x Global. All rights reserved.
+            © {currentYear} Bath-x Global. All rights reserved.
           </div>
           <div className="flex gap-6">
             <a href="#" className="hover:text-white transition-colors duration-300">Privacy Policy</a>

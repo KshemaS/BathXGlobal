@@ -69,7 +69,7 @@ export default function AboutPillars() {
 
   return (
     <section className="bg-zinc-950/30 py-[60px] lg:py-[80px] 2xl:py-[120px] border-y border-zinc-900/60 relative z-10 backdrop-blur-md w-full">
-      <div className="max-w-[1600px] mx-auto px-6 md:px-16 lg:px-24 4xl:px-0 w-full flex flex-col items-center">
+      <div className="max-w-[1600px] mx-auto px-[16px] md:px-16 lg:px-24 4xl:px-0 w-full flex flex-col items-center">
 
         {/* Header section */}
         <div className="text-center max-w-3xl mx-auto mb-16">
@@ -87,7 +87,7 @@ export default function AboutPillars() {
         </div>
 
         {/* Horizontal Slide Indicators */}
-        <div className="flex justify-center gap-6 md:gap-12 w-full max-w-4xl mb-16 pb-4">
+        <div className="flex justify-center gap-2 md:gap-6 xl:gap-12 w-full max-w-4xl mb-6 md:mb-16 pb-4">
           {pillars?.map((p, idx) => {
             const isActive = idx === activeSlide;
             return (
@@ -130,7 +130,7 @@ export default function AboutPillars() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.6, ease }}
-              className="w-full h-auto md:h-[520px] bg-zinc-950 border border-zinc-900 rounded-2xl p-8 md:p-14 overflow-hidden flex flex-col md:flex-row items-center gap-8 md:gap-16 shadow-sm"
+              className="w-full h-auto md:h-[520px] bg-zinc-950 border border-zinc-900 rounded-2xl overflow-hidden flex flex-col md:flex-row items-center gap-8 md:gap-16 shadow-sm"
             >
               {/* Outlined Background Number */}
               <div className="absolute right-10 bottom-6 text-[10rem] font-bold text-zinc-900/25 pointer-events-none select-none">

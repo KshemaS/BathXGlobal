@@ -5,7 +5,7 @@ import brandImg from "@/app/assets/images/pexels-artbovich-6316056.jpg";
 
 export default function AboutHeritage() {
   return (
-    <section className="relative py-[60px] lg:py-[80px] 2xl:py-[120px] px-6 md:px-16 lg:px-24 4xl:px-0 max-w-[1600px] mx-auto z-10">
+    <section className="relative py-[60px] lg:py-[80px] 2xl:py-[120px] px-[16px] md:px-16 lg:px-24 4xl:px-0 max-w-[1600px] mx-auto z-10">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center">
         
         {/* LEFT TEXT CONTENT - Structured with gold indicator lines */}

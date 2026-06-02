@@ -11,7 +11,8 @@ const menuLinks = [
   { label: "Collections", href: "/categories", num: "02" },
   { label: "About Us", href: "/about", num: "03" },
   { label: "Journal", href: "/blog", num: "04" },
-  { label: "Contact Us", href: "/contact", num: "05" },
+  { label: "Showrooms", href: "/showrooms", num: "05" },
+  { label: "Contact Us", href: "/contact", num: "06" },
 ];
 
 export default function Header() {
@@ -27,7 +28,7 @@ export default function Header() {
   return (
     <>
       <header className="fixed top-0 left-0 w-full z-50 bg-black">
-        <div className="grid grid-cols-3 items-center py-6 px-6 md:px-12 lg:px-20 4xl:px-0 max-w-[1600px] mx-auto">
+        <div className="grid grid-cols-3 items-center py-6 px-[16px] md:px-12 lg:px-20 4xl:px-0 max-w-[1600px] mx-auto">
           <div className="flex items-center">
             <button
               onClick={() => setIsOpen((o) => !o)}
@@ -56,13 +57,13 @@ export default function Header() {
                 src={logo}
                 alt="BathX"
                 height={50}
-                className="h-12 w-auto brightness-0 invert"
+                className="h-8 md:h-12 w-auto brightness-0 invert"
                 priority
               />
             </Link>
           </div>
 
-          <div className="flex justify-end">
+          <div className="hidden md:flex justify-end">
             <label className="flex items-center gap-2 border-b border-zinc-400 pb-1 cursor-text">
               <input
                 type="search"
@@ -97,9 +98,8 @@ export default function Header() {
       >
         <div className="h-16 shrink-0" />
         <div className="h-px bg-zinc-800 shrink-0" />
-        <div className="flex-1 overflow-y-auto flex flex-col justify-center">
-          <div className="w-full max-w-[1600px] 4xl:px-0 mx-auto px-6 md:px-12 lg:px-20 py-10 md:py-16">
-            
+        <div className="flex-1 overflow-y-auto flex flex-col justify-start pt-[40px]">
+          <div className="w-full max-w-[1600px] 4xl:px-0 mx-auto px-[16px] md:px-12 lg:px-20 py-10 md:py-16">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
               {/* LEFT COLUMN: PRIMARY PAGES */}
               <nav className="lg:col-span-5 flex flex-col justify-center">
@@ -111,10 +111,10 @@ export default function Header() {
                         onClick={() => setIsOpen(false)}
                         className="group flex items-baseline gap-6 cursor-pointer w-fit"
                       >
-                        <span className="text-xs font-mono tracking-widest text-zinc-500 font-light transition-colors duration-300 group-hover:text-amber-500">
+                        <span className="text-normal font-mono tracking-widest text-zinc-500 font-light transition-colors duration-300 group-hover:text-amber-500">
                           {item.num}
                         </span>
-                        <span className="text-3xl md:text-5xl lg:text-6xl font-light text-zinc-300 transition-all duration-500 ease-out group-hover:text-white group-hover:italic group-hover:pl-3">
+                        <span className="text-2xl md:text-3xl xl:text-5xl 4xl:text-6xl font-light text-zinc-300 transition-all duration-500 ease-out group-hover:text-white group-hover:italic group-hover:pl-3">
                           {item.label}
                         </span>
                       </Link>
@@ -124,7 +124,7 @@ export default function Header() {
               </nav>
 
               {/* RIGHT COLUMN: CINEMATIC SHOWCASE SLIDER */}
-              <div className="lg:col-span-7 hidden lg:block pr-3 pb-3">
+              <div className="lg:col-span-7 hidden md:block pr-3 pb-3">
                 <MegaMenuSlider isOpen={isOpen} />
               </div>
             </div>
@@ -170,7 +170,6 @@ export default function Header() {
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>

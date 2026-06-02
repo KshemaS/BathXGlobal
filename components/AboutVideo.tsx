@@ -15,7 +15,7 @@ export default function AboutVideo() {
   return (
     <>
       {/* CINEMATIC VIDEO DISPLAY - Luxury Framed theater box layout */}
-      <section className="relative py-[60px] lg:py-[80px] 2xl:py-[120px] px-6 md:px-16 lg:px-24 4xl:px-0 max-w-[1600px] mx-auto z-10">
+      <section className="relative py-[60px] lg:py-[80px] 2xl:py-[120px] px-[16px] md:px-16 lg:px-24 4xl:px-0 max-w-[1600px] mx-auto z-10">
         
         <div className="flex justify-between items-end mb-10 max-w-[1600px] mx-auto">
           <div>

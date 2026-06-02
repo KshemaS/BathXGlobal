@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 // Import required image assets
 import locMilan from "@/app/assets/images/pexels-artbovich-7587484.jpg";
@@ -15,6 +16,7 @@ const ease = [0.16, 1, 0.3, 1] as const;
 
 const showrooms = [
   {
+    id: "milan",
     city: "Milano",
     country: "Italy",
     address: "Via Montenapoleone, 8, 20121 Milano",
@@ -23,6 +25,7 @@ const showrooms = [
     coords: "45.4682° N, 9.1952° E",
   },
   {
+    id: "london",
     city: "London",
     country: "United Kingdom",
     address: "24 Chelsea Harbour, London SW10 0XE",
@@ -31,6 +34,7 @@ const showrooms = [
     coords: "51.4770° N, 0.1804° W",
   },
   {
+    id: "new-york",
     city: "New York",
     country: "United States",
     address: "152 Mercer St, New York, NY 10012",
@@ -39,6 +43,7 @@ const showrooms = [
     coords: "40.7251° N, 73.9997° W",
   },
   {
+    id: "dubai",
     city: "Dubai",
     country: "United Arab Emirates",
     address: "Boutique 4, Design District, Dubai",
@@ -50,9 +55,28 @@ const showrooms = [
 
 export default function AboutShowrooms() {
   const [selectedShowroom, setSelectedShowroom] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 1024);
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Autoplay showrooms loop on mobile screen only (every 5 seconds)
+  useEffect(() => {
+    if (!isMobile) return;
+
+    const interval = setInterval(() => {
+      setSelectedShowroom((prev) => (prev + 1) % showrooms.length);
+    }, 5000);
+
+    return () => clearInterval(interval);
+  }, [isMobile, selectedShowroom]);
 
   return (
-    <section className="relative py-[60px] lg:py-[80px] 2xl:py-[120px] px-6 md:px-16 lg:px-24 4xl:px-0 max-w-[1600px] mx-auto z-10">
+    <section className="relative py-[60px] lg:py-[80px] 2xl:py-[120px] px-[16px] md:px-16 lg:px-24 4xl:px-0 max-w-[1600px] mx-auto z-10">
       
       <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-20 max-w-[1600px] mx-auto gap-6">
         <div>
@@ -72,7 +96,7 @@ export default function AboutShowrooms() {
         
         {/* LEFT COLUMN: THE INTERACTIVE CANVAS (7 cols) */}
         <div className="lg:col-span-7 flex flex-col justify-between">
-          <div className="relative w-full aspect-[16/10] rounded-sm overflow-hidden border border-zinc-900 bg-zinc-950 shadow-2xl group">
+          <div className="relative w-full aspect-[4/5] sm:aspect-[16/10] rounded-sm overflow-hidden border border-zinc-900 bg-zinc-950 shadow-2xl group">
             <AnimatePresence mode="wait">
               <motion.div
                 key={selectedShowroom}
@@ -93,13 +117,13 @@ export default function AboutShowrooms() {
                 <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/20 to-black/35" />
                 <div className="absolute inset-0 bg-radial-gradient(circle_at_center,transparent_30%,#09090b_90%) opacity-75" />
                 {/* Showroom detail overlay at bottom */}
-                <div className="absolute bottom-8 left-8 right-8 z-10 text-left">
+                <div className="absolute bottom-4 left-4 right-4 xs:bottom-6 xs:left-6 xs:right-6 sm:bottom-8 sm:left-8 sm:right-8 z-10 text-left">
                   <div className="flex items-center gap-3 mb-2">
-                    <span className="text-[10px] tracking-[0.25em] font-mono text-amber-500 uppercase">
+                    <span className="text-[12px] tracking-[0.25em] font-mono text-amber-500 uppercase">
                       {showrooms[selectedShowroom].country}
                     </span>
                     <span className="h-[1px] w-6 bg-amber-500/40" />
-                    <span className="text-[10px] font-mono text-zinc-400">
+                    <span className="text-[12px] font-mono text-zinc-200">
                       BOUTIQUE NO. 0{selectedShowroom + 1}
                     </span>
                   </div>
@@ -109,17 +133,17 @@ export default function AboutShowrooms() {
                   
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 border-t border-zinc-800/80 pt-4 mt-2">
                     <div>
-                      <span className="text-[9px] font-mono tracking-wider text-zinc-500 block mb-1 uppercase">Address</span>
+                      <span className="text-[12px] font-mono tracking-wider text-zinc-300 block mb-1 uppercase">Address</span>
                       <p className="text-xs md:text-sm text-zinc-300 font-light leading-relaxed">
                         {showrooms[selectedShowroom].address}
                       </p>
                     </div>
                     <div>
-                      <span className="text-[9px] font-mono tracking-wider text-zinc-500 block mb-1 uppercase">Contact / Hours</span>
+                      <span className="text-[12px] font-mono tracking-wider text-zinc-300 block mb-1 uppercase">Contact / Hours</span>
                       <p className="text-xs md:text-sm text-zinc-300 font-mono mb-1">
                         {showrooms[selectedShowroom].phone}
                       </p>
-                      <p className="text-[11px] text-zinc-400 font-light">
+                      <p className="text-[12px] text-zinc-400 font-light">
                         Mon - Sat // 10:00 AM - 7:00 PM
                       </p>
                     </div>
@@ -166,14 +190,18 @@ export default function AboutShowrooms() {
                 </div>
 
                 {/* Micro-interaction interactive arrow / line */}
-                <div className="flex items-center gap-3">
+                <Link 
+                  href={`/showrooms#${showroom.id}`}
+                  onClick={(e) => e.stopPropagation()}
+                  className="flex items-center gap-3 cursor-pointer z-20"
+                >
                   <div className={`h-[1px] bg-amber-500/40 transition-all duration-700 ${
                     isSelected ? "w-12" : "w-0 group-hover/btn:w-6"
                   }`} />
                   <ArrowUpRight className={`w-4 h-4 transition-all duration-500 ${
                     isSelected ? "text-amber-400 transform translate-x-0.5 -translate-y-0.5" : "text-zinc-700 group-hover/btn:text-zinc-400"
                   }`} />
-                </div>
+                </Link>
               </button>
             );
           })}

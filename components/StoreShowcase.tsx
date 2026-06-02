@@ -4,6 +4,7 @@ import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import Link from "next/link";
 import bgShowroom from "@/app/assets/images/pexels-artbovich-8089093.jpg";
 
 export default function StoreShowcase() {
@@ -46,10 +47,13 @@ export default function StoreShowcase() {
 
           {/* CTA BUTTON */}
           <div>
-            <button className="group flex items-center gap-3 px-6 py-3.5 rounded-full bg-white text-black hover:bg-zinc-100 transition-all duration-300 font-medium text-xs tracking-wider uppercase shadow-xl cursor-pointer">
+            <Link 
+              href="/showrooms" 
+              className="group inline-flex items-center gap-3 px-6 py-3.5 rounded-full bg-white text-black hover:bg-zinc-100 transition-all duration-300 font-medium text-xs tracking-wider uppercase shadow-xl cursor-pointer"
+            >
               Explore Showroom
               <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1.5" />
-            </button>
+            </Link>
           </div>
         </motion.div>
       </div>

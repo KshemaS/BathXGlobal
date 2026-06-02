@@ -31,8 +31,9 @@ export default function FullPageScroll({ children, onComplete }: Props) {
     // Track previous current index
     prevCurrent.current = currentRef.current;
 
-    // Transition vertically only if we are past ContentSection (index >= 3)
-    const isVertical = currentRef.current >= 3 && next >= 3;
+    // Transition vertically on mobile/tablet OR if we are past ContentSection (index >= 3)
+    const isMobile = typeof window !== "undefined" && window.innerWidth < 1024;
+    const isVertical = isMobile || (currentRef.current >= 3 && next >= 3);
     setAxis(isVertical ? "y" : "x");
 
     currentRef.current = next;

@@ -141,6 +141,15 @@ export default function CategoriesClient() {
   const [selectedCollections, setSelectedCollections] = useState<string[]>([]);
   const [selectedTypes, setSelectedTypes] = useState<string[]>([]);
   const [selectedFinishes, setSelectedFinishes] = useState<string[]>([]);
+  const [isMobile, setIsMobile] = useState(false);
+  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+
+  React.useEffect(() => {
+    setIsMobile(window.innerWidth < 1024);
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Toggles multiselect values
   const toggleFilter = (value: string, type: "collection" | "type" | "finish") => {
@@ -190,7 +199,7 @@ export default function CategoriesClient() {
         <div className="absolute top-[80vh] -right-[10vw] w-[50vw] h-[50vw] bg-zinc-500/5 rounded-full blur-[180px] pointer-events-none z-0" />
 
         {/* HERO HEADER */}
-        <section className="relative px-6 md:px-16 lg:px-24 4xl:px-0 pb-12 pt-8 max-w-[1600px] mx-auto z-10">
+        <section className="relative px-[16px] md:px-16 lg:px-24 4xl:px-0 pb-12 pt-8 max-w-[1600px] mx-auto z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -210,111 +219,149 @@ export default function CategoriesClient() {
         </section>
 
         {/* DYNAMIC TWO-COLUMN FILTERING SYSTEM */}
-        <section className="relative px-6 md:px-16 lg:px-24 4xl:px-0 pb-28 max-w-[1600px] mx-auto z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+        <section className="relative px-[16px] md:px-16 lg:px-24 4xl:px-0 pb-28 max-w-[1600px] mx-auto z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           
           {/* COLUMN 1: STICKY FILTERS PANEL */}
           <div className="lg:col-span-3">
-            <div className="sticky top-28 flex flex-col gap-8 bg-zinc-950/60 backdrop-blur-md p-8 rounded-3xl border border-white/5 shadow-2xl relative">
-              <div className="flex items-center justify-between border-b border-white/10 pb-4">
+            <div className={`sticky top-28 flex flex-col ${(!isMobile || isMobileFilterOpen) ? "gap-8" : "gap-0"} bg-zinc-950/60 backdrop-blur-md p-6 md:p-8 rounded-3xl border border-white/5 shadow-2xl relative transition-all duration-300 z-30`}>
+              
+              {/* HEADER TAPPED TO TOGGLE ON MOBILE */}
+              <div 
+                onClick={() => isMobile && setIsMobileFilterOpen(!isMobileFilterOpen)}
+                className={`flex items-center justify-between border-b border-white/10 pb-4 ${isMobile ? "cursor-pointer select-none" : ""}`}
+              >
                 <h3 className="text-xs uppercase tracking-[0.25em] text-white font-semibold flex items-center gap-2">
                   <SlidersHorizontal className="w-4 h-4 text-amber-500" />
-                  <span>Filters</span>
+                  <span>
+                    Filters {hasActiveFilters && `(${selectedCollections.length + selectedTypes.length + selectedFinishes.length})`}
+                  </span>
                 </h3>
-                {hasActiveFilters && (
-                  <button 
-                    onClick={resetFilters}
-                    className="text-[10px] uppercase tracking-[0.15em] text-amber-400 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
-                    id="reset-filters-btn"
+                
+                <div className="flex items-center gap-4">
+                  {hasActiveFilters && (
+                    <button 
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        resetFilters();
+                      }}
+                      className="text-[10px] uppercase tracking-[0.15em] text-amber-400 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
+                      id="reset-filters-btn"
+                    >
+                      <RotateCcw className="w-3.5 h-3.5" />
+                      <span>Reset</span>
+                    </button>
+                  )}
+                  {isMobile && (
+                    <motion.svg
+                      animate={{ rotate: isMobileFilterOpen ? 180 : 0 }}
+                      transition={{ duration: 0.3, ease }}
+                      className="w-4 h-4 text-zinc-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </motion.svg>
+                  )}
+                </div>
+              </div>
+
+              {/* COLLAPSIBLE CONTAINER */}
+              <AnimatePresence initial={false}>
+                {(!isMobile || isMobileFilterOpen) && (
+                  <motion.div
+                    initial={isMobile ? { height: 0, opacity: 0, marginTop: 0 } : undefined}
+                    animate={isMobile ? { height: "auto", opacity: 1, marginTop: 16 } : undefined}
+                    exit={isMobile ? { height: 0, opacity: 0, marginTop: 0 } : undefined}
+                    transition={{ duration: 0.45, ease }}
+                    className="overflow-hidden flex flex-col gap-8"
                   >
-                    <RotateCcw className="w-3.5 h-3.5" />
-                    <span>Reset</span>
-                  </button>
+                    {/* Dimension 1: Collection Series */}
+                    <div className="flex flex-col gap-4">
+                      <h4 className="text-[10px] uppercase tracking-[0.2em] text-zinc-400 font-bold">
+                        Collection Series
+                      </h4>
+                      <div className="flex flex-col gap-3">
+                        {COLLECTIONS.map((col) => {
+                          const isChecked = selectedCollections.includes(col);
+                          return (
+                            <button
+                              key={col}
+                              onClick={() => toggleFilter(col, "collection")}
+                              className="flex items-center justify-between text-left text-xs uppercase tracking-wider font-light transition-all duration-300 group cursor-pointer"
+                            >
+                              <span className={isChecked ? "text-white font-medium" : "text-zinc-400 group-hover:text-zinc-200"}>
+                                {col}
+                              </span>
+                              <div className={`w-3.5 h-3.5 rounded border transition-colors flex items-center justify-center ${
+                                isChecked ? "bg-amber-500 border-amber-500" : "border-white/20 group-hover:border-white/40"
+                              }`}>
+                                {isChecked && <div className="w-1.5 h-1.5 bg-black rounded-sm" />}
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Dimension 2: Product Type */}
+                    <div className="flex flex-col gap-4 border-t border-white/5 pt-6">
+                      <h4 className="text-[10px] uppercase tracking-[0.2em] text-zinc-400 font-bold">
+                        Product Type
+                      </h4>
+                      <div className="flex flex-col gap-3">
+                        {TYPES.map((type) => {
+                          const isChecked = selectedTypes.includes(type);
+                          return (
+                            <button
+                              key={type}
+                              onClick={() => toggleFilter(type, "type")}
+                              className="flex items-center justify-between text-left text-xs uppercase tracking-wider font-light transition-all duration-300 group cursor-pointer"
+                            >
+                              <span className={isChecked ? "text-white font-medium" : "text-zinc-400 group-hover:text-zinc-200"}>
+                                {type}
+                              </span>
+                              <div className={`w-3.5 h-3.5 rounded border transition-colors flex items-center justify-center ${
+                                isChecked ? "bg-amber-500 border-amber-500" : "border-white/20 group-hover:border-white/40"
+                              }`}>
+                                {isChecked && <div className="w-1.5 h-1.5 bg-black rounded-sm" />}
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Dimension 3: Finishes */}
+                    <div className="flex flex-col gap-4 border-t border-white/5 pt-6">
+                      <h4 className="text-[10px] uppercase tracking-[0.2em] text-zinc-400 font-bold">
+                        Atelier Finish
+                      </h4>
+                      <div className="flex flex-col gap-3">
+                        {FINISHES.map((finish) => {
+                          const isChecked = selectedFinishes.includes(finish);
+                          return (
+                            <button
+                              key={finish}
+                              onClick={() => toggleFilter(finish, "finish")}
+                              className="flex items-center justify-between text-left text-xs uppercase tracking-wider font-light transition-all duration-300 group cursor-pointer"
+                            >
+                              <span className={isChecked ? "text-white font-medium" : "text-zinc-400 group-hover:text-zinc-200"}>
+                                {finish}
+                              </span>
+                              <div className={`w-3.5 h-3.5 rounded border transition-colors flex items-center justify-center ${
+                                isChecked ? "bg-amber-500 border-amber-500" : "border-white/20 group-hover:border-white/40"
+                              }`}>
+                                {isChecked && <div className="w-1.5 h-1.5 bg-black rounded-sm" />}
+                              </div>
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </motion.div>
                 )}
-              </div>
-
-              {/* Dimension 1: Collection Series */}
-              <div className="flex flex-col gap-4">
-                <h4 className="text-[10px] uppercase tracking-[0.2em] text-zinc-400 font-bold">
-                  Collection Series
-                </h4>
-                <div className="flex flex-col gap-3">
-                  {COLLECTIONS.map((col) => {
-                    const isChecked = selectedCollections.includes(col);
-                    return (
-                      <button
-                        key={col}
-                        onClick={() => toggleFilter(col, "collection")}
-                        className="flex items-center justify-between text-left text-xs uppercase tracking-wider font-light transition-all duration-300 group cursor-pointer"
-                      >
-                        <span className={isChecked ? "text-white font-medium" : "text-zinc-400 group-hover:text-zinc-200"}>
-                          {col}
-                        </span>
-                        <div className={`w-3.5 h-3.5 rounded border transition-colors flex items-center justify-center ${
-                          isChecked ? "bg-amber-500 border-amber-500" : "border-white/20 group-hover:border-white/40"
-                        }`}>
-                          {isChecked && <div className="w-1.5 h-1.5 bg-black rounded-sm" />}
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Dimension 2: Product Type */}
-              <div className="flex flex-col gap-4 border-t border-white/5 pt-6">
-                <h4 className="text-[10px] uppercase tracking-[0.2em] text-zinc-400 font-bold">
-                  Product Type
-                </h4>
-                <div className="flex flex-col gap-3">
-                  {TYPES.map((type) => {
-                    const isChecked = selectedTypes.includes(type);
-                    return (
-                      <button
-                        key={type}
-                        onClick={() => toggleFilter(type, "type")}
-                        className="flex items-center justify-between text-left text-xs uppercase tracking-wider font-light transition-all duration-300 group cursor-pointer"
-                      >
-                        <span className={isChecked ? "text-white font-medium" : "text-zinc-400 group-hover:text-zinc-200"}>
-                          {type}
-                        </span>
-                        <div className={`w-3.5 h-3.5 rounded border transition-colors flex items-center justify-center ${
-                          isChecked ? "bg-amber-500 border-amber-500" : "border-white/20 group-hover:border-white/40"
-                        }`}>
-                          {isChecked && <div className="w-1.5 h-1.5 bg-black rounded-sm" />}
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Dimension 3: Finishes */}
-              <div className="flex flex-col gap-4 border-t border-white/5 pt-6">
-                <h4 className="text-[10px] uppercase tracking-[0.2em] text-zinc-400 font-bold">
-                  Atelier Finish
-                </h4>
-                <div className="flex flex-col gap-3">
-                  {FINISHES.map((finish) => {
-                    const isChecked = selectedFinishes.includes(finish);
-                    return (
-                      <button
-                        key={finish}
-                        onClick={() => toggleFilter(finish, "finish")}
-                        className="flex items-center justify-between text-left text-xs uppercase tracking-wider font-light transition-all duration-300 group cursor-pointer"
-                      >
-                        <span className={isChecked ? "text-white font-medium" : "text-zinc-400 group-hover:text-zinc-200"}>
-                          {finish}
-                        </span>
-                        <div className={`w-3.5 h-3.5 rounded border transition-colors flex items-center justify-center ${
-                          isChecked ? "bg-amber-500 border-amber-500" : "border-white/20 group-hover:border-white/40"
-                        }`}>
-                          {isChecked && <div className="w-1.5 h-1.5 bg-black rounded-sm" />}
-                        </div>
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
+              </AnimatePresence>
 
             </div>
           </div>

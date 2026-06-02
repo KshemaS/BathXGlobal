@@ -19,7 +19,7 @@ export default function AboutHero() {
         />
       </div>
 
-      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto flex flex-col items-center">
+      <div className="relative z-10 text-center px-[16px] max-w-5xl mx-auto flex flex-col items-center">
         
         {/* Thin animated line accent */}
         <motion.div
@@ -33,7 +33,7 @@ export default function AboutHero() {
           initial={{ opacity: 0, letterSpacing: "0.1em" }}
           animate={{ opacity: 1, letterSpacing: "0.5em" }}
           transition={{ duration: 1.2, ease }}
-          className="text-[10px] md:text-[12px] uppercase text-white font-light mb-6 tracking-[0.5em] block leading-none"
+          className="text-[10px] md:text-[12px] uppercase text-white font-light mb-6 tracking-[0.5em] block leading-[26px] md:leading-none"
         >
           ESTABLISHED IN 2012 // THE ART OF WATER
         </motion.p>

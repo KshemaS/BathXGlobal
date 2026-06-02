@@ -38,7 +38,7 @@ export default function ContactFAQ() {
   };
 
   return (
-    <section className="relative px-6 md:px-16 lg:px-24 py-20 lg:py-28 bg-black z-10 border-t border-white/5">
+    <section className="relative px-[16px] md:px-16 lg:px-24 py-20 lg:py-28 bg-black z-10 border-t border-white/5">
       <div className="max-w-4xl mx-auto">
         
         <div className="text-center mb-16">
@@ -83,7 +83,7 @@ export default function ContactFAQ() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.5, ease }}
                     >
-                      <div className="px-6 md:px-8 pb-8 pt-0 border-t border-white/5 text-zinc-400 font-light text-sm md:text-base leading-relaxed tracking-wide pt-6">
+                      <div className="px-[16px] md:px-8 pb-8 pt-0 border-t border-white/5 text-zinc-400 font-light text-sm md:text-base leading-relaxed tracking-wide pt-6">
                         {faq.answer}
                       </div>
                     </motion.div>

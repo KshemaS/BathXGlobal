@@ -7,7 +7,7 @@ const ease = [0.16, 1, 0.3, 1] as const;
 
 export default function ContactHero() {
   return (
-    <section className="relative px-6 md:px-16 lg:px-24 4xl:px-0 pb-12 pt-8 max-w-[1600px] mx-auto z-10">
+    <section className="relative px-[16px] md:px-16 lg:px-24 4xl:px-0 pb-12 pt-8 max-w-[1600px] mx-auto z-10">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}

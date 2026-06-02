@@ -59,8 +59,19 @@ export default function BlogDetailClient({ post, relatedPosts }: BlogDetailClien
             <div className="absolute inset-0 bg-black/40 z-10" />
           </div>
 
+          {/* Back to Editorial Button */}
+          <div className="absolute top-28 left-6 md:left-16 lg:left-24 z-30">
+            <Link 
+              href="/blog" 
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-white/10 bg-black/40 backdrop-blur-md text-zinc-300 hover:text-black hover:bg-white hover:border-white transition-all duration-300 text-xs uppercase tracking-[0.2em] font-light shadow-lg cursor-pointer"
+            >
+              <ChevronLeft className="w-4 h-4" />
+              <span>Back to Editorial</span>
+            </Link>
+          </div>
+
           {/* CONTENT INNER WRAPPER */}
-          <div className="relative w-full max-w-[1600px] mx-auto px-6 md:px-16 lg:px-24 4xl:px-0 pb-16 z-20">
+          <div className="relative w-full max-w-[1600px] mx-auto px-[16px] md:px-16 lg:px-24 4xl:px-0 pb-16 z-20">
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
@@ -110,7 +121,7 @@ export default function BlogDetailClient({ post, relatedPosts }: BlogDetailClien
         </section>
 
         {/* EDITORIAL CONTENT SECTION */}
-        <section className="relative px-6 md:px-16 lg:px-24 4xl:px-0 py-16 md:py-24 max-w-[1600px] mx-auto z-10 grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <section className="relative px-[16px] md:px-16 lg:px-24 4xl:px-0 py-16 md:py-24 max-w-[1600px] mx-auto z-10 grid grid-cols-1 lg:grid-cols-12 gap-12">
           
           {/* ARTICLE BODY */}
           <div className="lg:col-span-8 max-w-3xl">
@@ -273,7 +284,7 @@ export default function BlogDetailClient({ post, relatedPosts }: BlogDetailClien
 
         {/* RELATED READS SECTION */}
         <section className="relative py-20 lg:py-28 bg-zinc-950 border-t border-white/5 z-10">
-          <div className="max-w-[1600px] mx-auto px-6 md:px-16 lg:px-24 4xl:px-0">
+          <div className="max-w-[1600px] mx-auto px-[16px] md:px-16 lg:px-24 4xl:px-0">
             
             {/* Section Header */}
             <div className="mb-12 md:mb-16">
