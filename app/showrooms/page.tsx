@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { Calendar, Check, } from "lucide-react";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { ArrowRight } from "lucide-react";
 import Footer from "@/components/Footer";
 import ShowroomCard from "@/components/ShowroomCard";
 
@@ -76,36 +77,6 @@ const showroomsList = [
 ];
 
 export default function ShowroomsPage() {
-  const [isBooked, setIsBooked] = useState(false);
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [date, setDate] = useState("");
-  const [city, setCity] = useState("Milano");
-
-  const formRef = useRef<HTMLDivElement | null>(null);
-
-  const handleBooking = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (name && email && date) {
-      setIsBooked(true);
-      setTimeout(() => {
-        setIsBooked(false);
-        setName("");
-        setEmail("");
-        setPhone("");
-        setDate("");
-      }, 4000);
-    }
-  };
-
-  const scrollToForm = (cityName: string) => {
-    setCity(cityName);
-    if (formRef.current) {
-      formRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
     <>
       <main className="bg-black text-white select-none overflow-x-hidden relative min-h-screen font-sans">
@@ -144,13 +115,12 @@ export default function ShowroomsPage() {
         </section>
 
         {/* EDITORIAL ALTERNATING SHOWROOMS SHOWCASE */}
-        <section className="relative px-[16px] md:px-16 lg:px-24 4xl:px-0 py-20 lg:py-32 max-w-[1600px] mx-auto z-10 flex flex-col gap-24 lg:gap-36">
+        <section className="relative px-[16px] md:px-16 lg:px-24 4xl:px-0 pt-20 lg:pt-32 max-w-[1600px] mx-auto z-10 flex flex-col gap-5 lg:gap-36">
           {showroomsList.map((boutique, index) => (
             <ShowroomCard
               key={boutique.id}
               boutique={boutique}
               index={index}
-              onBookingClick={scrollToForm}
             />
           ))}
         </section>
@@ -158,146 +128,31 @@ export default function ShowroomsPage() {
 
         {/* PRIVATE ATELIER SCHEDULING PORTAL */}
         <section 
-          ref={formRef} 
-          id="consultation-form" 
-          className="relative px-[16px] md:px-16 lg:px-24 4xl:px-0 py-20 lg:py-32 bg-zinc-950/20 z-10"
+          className="relative px-[16px] md:px-16 lg:px-24 4xl:px-0 pt-10 pb-24 lg:pb-36 bg-zinc-950/20 z-10 overflow-hidden"
         >
-          <div className="max-w-4xl mx-auto">
+          {/* Subtle gold glow behind the CTA */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-amber-500/5 rounded-full blur-[120px] pointer-events-none z-0" />
+
+          <div className="max-w-4xl mx-auto text-center relative z-10 flex flex-col items-center">
+            <span className="text-[10px] uppercase tracking-[0.3em] text-amber-500 font-medium font-mono mb-4 block">
+              Private Atelier Scheduling
+            </span>
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-light text-white tracking-tight leading-tight max-w-2xl">
+              Begin Your Bespoke Journey
+            </h2>
+            <p className="text-zinc-400 font-light text-sm md:text-base leading-relaxed tracking-wide max-w-xl mx-auto mt-6">
+              Arrange a closed-door consultation session with our design advisors at your preferred boutique location or inquire about bespoke coordination options.
+            </p>
             
-            <div className="text-center mb-16">
-              <span className="text-[10px] uppercase tracking-[0.3em] text-amber-500 font-medium font-mono mb-3 block">
-                Atelier Scheduling
-              </span>
-              <h2 className="text-3xl md:text-4xl font-light text-white tracking-tight">
-                Request Private Showroom Consultation
-              </h2>
-              <p className="text-zinc-400 font-light text-sm md:text-base leading-relaxed tracking-wide max-w-lg mx-auto mt-4">
-                Arrange a closed-door consultation session with our design advisors at your preferred boutique location.
-              </p>
+            <div className="mt-10">
+              <Link 
+                href="/contact" 
+                className="group inline-flex items-center gap-3 px-8 py-4.5 rounded-full bg-white text-black hover:bg-zinc-100 transition-all duration-300 font-semibold text-xs xl:text-sm tracking-[0.2em] uppercase shadow-2xl cursor-pointer"
+              >
+                <span>Schedule Consultation</span>
+                <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
             </div>
-
-            <div className="bg-zinc-950 border border-white/5 p-8 md:p-12 rounded-3xl shadow-2xl relative">
-              <AnimatePresence mode="wait">
-                {!isBooked ? (
-                  <motion.form 
-                    key="form"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    onSubmit={handleBooking} 
-                    className="grid grid-cols-1 md:grid-cols-2 gap-8"
-                  >
-                    
-                    {/* Name */}
-                    <div className="flex flex-col gap-2">
-                      <label className="text-[10px] uppercase tracking-[0.2em] text-zinc-400 font-semibold font-mono">
-                        Full Name *
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="John Doe"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        className="w-full bg-zinc-900/60 border border-white/10 rounded-xl px-5 py-3.5 text-sm text-white placeholder-zinc-600 focus:border-white focus:outline-none transition-colors"
-                        required
-                      />
-                    </div>
-
-                    {/* Email */}
-                    <div className="flex flex-col gap-2">
-                      <label className="text-[10px] uppercase tracking-[0.2em] text-zinc-400 font-semibold font-mono">
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        placeholder="john@example.com"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className="w-full bg-zinc-900/60 border border-white/10 rounded-xl px-5 py-3.5 text-sm text-white placeholder-zinc-600 focus:border-white focus:outline-none transition-colors"
-                        required
-                      />
-                    </div>
-
-                    {/* Telephone */}
-                    <div className="flex flex-col gap-2">
-                      <label className="text-[10px] uppercase tracking-[0.2em] text-zinc-400 font-semibold font-mono">
-                        Telephone Number
-                      </label>
-                      <input
-                        type="tel"
-                        placeholder="+39 333 123456"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        className="w-full bg-zinc-900/60 border border-white/10 rounded-xl px-5 py-3.5 text-sm text-white placeholder-zinc-600 focus:border-white focus:outline-none transition-colors"
-                      />
-                    </div>
-
-                    {/* Preferred Date */}
-                    <div className="flex flex-col gap-2">
-                      <label className="text-[10px] uppercase tracking-[0.2em] text-zinc-400 font-semibold font-mono">
-                        Preferred Date *
-                      </label>
-                      <input
-                        type="date"
-                        value={date}
-                        onChange={(e) => setDate(e.target.value)}
-                        className="w-full bg-zinc-900/60 border border-white/10 rounded-xl px-5 py-3.5 text-sm text-white focus:border-white focus:outline-none transition-colors text-zinc-400"
-                        required
-                      />
-                    </div>
-
-                    {/* Preferred Showroom */}
-                    <div className="flex flex-col gap-2 md:col-span-2">
-                      <label className="text-[10px] uppercase tracking-[0.2em] text-zinc-400 font-semibold font-mono">
-                        Target Atelier Location *
-                      </label>
-                      <select
-                        value={city}
-                        onChange={(e) => setCity(e.target.value)}
-                        className="w-full bg-zinc-900/60 border border-white/10 rounded-xl px-5 py-3.5 text-sm text-white focus:border-white focus:outline-none transition-colors text-zinc-400 cursor-pointer"
-                        required
-                      >
-                        <option value="Milano">Milano // Italy</option>
-                        <option value="London">London // United Kingdom</option>
-                        <option value="New York">New York // United States</option>
-                        <option value="Dubai">Dubai // United Arab Emirates</option>
-                      </select>
-                    </div>
-
-                    {/* Submit */}
-                    <div className="md:col-span-2 mt-4">
-                      <button
-                        type="submit"
-                        className="w-full py-4 rounded-xl bg-white text-black font-semibold uppercase text-xs tracking-[0.25em] hover:bg-zinc-100 transition-colors cursor-pointer shadow-lg flex items-center justify-center gap-2"
-                      >
-                        <Calendar className="w-4 h-4" />
-                        <span>Reserve Closed Consultation</span>
-                      </button>
-                    </div>
-
-                  </motion.form>
-                ) : (
-                  <motion.div
-                    key="success"
-                    initial={{ opacity: 0, scale: 0.95 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    className="flex flex-col items-center justify-center py-16 text-center"
-                  >
-                    <div className="w-16 h-16 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 mb-6 shadow-xl animate-pulse">
-                      <Check className="w-8 h-8" />
-                    </div>
-                    <h3 className="text-2xl font-light text-white tracking-wide mb-3">
-                      Closed Consultation Requested
-                    </h3>
-                    <p className="text-zinc-400 font-light text-sm max-w-md leading-relaxed">
-                      Thank you, <span className="text-white font-medium">{name}</span>. Our atelier directors in <span className="text-amber-500 font-medium">{city}</span> will contact you at <span className="text-white font-mono">{email}</span> within 24 hours to confirm your private scheduling details.
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
           </div>
         </section>
 

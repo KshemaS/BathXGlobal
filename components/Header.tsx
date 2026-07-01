@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import logo from "@/app/assets/images/logo.svg";
@@ -17,13 +17,37 @@ const menuLinks = [
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [showSlider, setShowSlider] = useState(true);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const lastScrollTop = useRef(0);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
+    if (isOpen) {
+      setShowSlider(true);
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollTop = 0;
+      }
+      lastScrollTop.current = 0;
+    }
     return () => {
       document.body.style.overflow = "";
     };
   }, [isOpen]);
+
+  const handleScroll = () => {
+    if (!scrollContainerRef.current) return;
+    const currentScrollTop = scrollContainerRef.current.scrollTop;
+    
+    // Hide slider when scrolling down, show when scrolling up
+    if (currentScrollTop > lastScrollTop.current && currentScrollTop > 20) {
+      setShowSlider(false);
+    } else if (currentScrollTop < lastScrollTop.current) {
+      setShowSlider(true);
+    }
+    
+    lastScrollTop.current = currentScrollTop;
+  };
 
   return (
     <>
@@ -98,7 +122,11 @@ export default function Header() {
       >
         <div className="h-16 shrink-0" />
         <div className="h-px bg-zinc-800 shrink-0" />
-        <div className="flex-1 overflow-y-auto flex flex-col justify-start pt-[40px]">
+        <div 
+          ref={scrollContainerRef}
+          onScroll={handleScroll}
+          className="flex-1 overflow-y-auto flex flex-col justify-start pt-[40px]"
+        >
           <div className="w-full max-w-[1600px] 4xl:px-0 mx-auto px-[16px] md:px-12 lg:px-20 py-10 md:py-16">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
               {/* LEFT COLUMN: PRIMARY PAGES */}
@@ -124,7 +152,13 @@ export default function Header() {
               </nav>
 
               {/* RIGHT COLUMN: CINEMATIC SHOWCASE SLIDER */}
-              <div className="lg:col-span-7 hidden md:block pr-3 pb-3">
+              <div 
+                className={`lg:col-span-7 hidden md:block pr-3 pb-3 transition-all duration-500 ease-in-out ${
+                  showSlider 
+                    ? "opacity-100 scale-100 max-h-[800px]" 
+                    : "opacity-0 scale-95 max-h-0 overflow-hidden pointer-events-none pb-0 pr-0"
+                }`}
+              >
                 <MegaMenuSlider isOpen={isOpen} />
               </div>
             </div>
@@ -158,15 +192,22 @@ export default function Header() {
                   Follow
                 </p>
                 <div className="flex gap-5">
-                  {["Instagram", "Pinterest", "Houzz"].map((s) => (
-                    <a
-                      key={s}
-                      href="#"
-                      className="text-sm text-zinc-300 hover:text-white transition-colors font-light"
-                    >
-                      {s}
-                    </a>
-                  ))}
+                  <a
+                    href="https://www.instagram.com/bathxglobal/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-zinc-300 hover:text-white transition-colors font-light"
+                  >
+                    Instagram
+                  </a>
+                  <a
+                    href="https://www.facebook.com/bathxglobal"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm text-zinc-300 hover:text-white transition-colors font-light"
+                  >
+                    Facebook
+                  </a>
                 </div>
               </div>
             </div>

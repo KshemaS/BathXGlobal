@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from "react";
 import Slider from "react-slick";
 import Image from "next/image";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import "slick-carousel/slick/slick.css";
@@ -79,14 +79,28 @@ export default function CollectionsSlider({ activeSlide, setActiveSlide }: Colle
     }
   }, [activeSlide]);
 
+  const isMobile = slidesToShow === 1;
+
+  const handlePrev = () => {
+    if (activeSlide !== undefined && setActiveSlide && activeSlide > 0) {
+      setActiveSlide(activeSlide - 1);
+    }
+  };
+
+  const handleNext = () => {
+    if (activeSlide !== undefined && setActiveSlide && activeSlide < collections.length - 2) {
+      setActiveSlide(activeSlide + 1);
+    }
+  };
+
   const settings = {
-    dots: false,
-    infinite: false,
-    speed: 1000,
+    dots: isMobile,
+    infinite: isMobile,
+    speed: 800,
     slidesToShow: slidesToShow,
     slidesToScroll: 1,
-    autoplay: false,
-    autoplaySpeed: 2000,
+    autoplay: isMobile,
+    autoplaySpeed: 1500,
     arrows: false,
     pauseOnHover: true,
   };
@@ -121,10 +135,13 @@ export default function CollectionsSlider({ activeSlide, setActiveSlide }: Colle
     };
   };
 
+  const isAtStart = (activeSlide || 0) === 0;
+  const isAtEnd = (activeSlide || 0) >= collections.length - 2;
+
   // If on desktop (slidesToShow === 2), render the custom scroll-reveal Framer Motion track
   if (slidesToShow === 2) {
     return (
-      <div className="relative w-full z-20 group/slider overflow-hidden">
+      <div className="relative w-full z-20 group/slider">
         <div className="w-full overflow-hidden px-1">
           <motion.div
             className="flex"
@@ -167,6 +184,30 @@ export default function CollectionsSlider({ activeSlide, setActiveSlide }: Colle
             ))}
           </motion.div>
         </div>
+
+        {/* Navigation Buttons for large devices */}
+        <div className="hidden lg:flex justify-end gap-4 mt-6 pr-3">
+          <button 
+            onClick={handlePrev}
+            disabled={isAtStart}
+            className={`w-14 h-14 rounded-full border border-white/20 flex items-center justify-center text-white bg-white/20 hover:bg-white hover:text-black hover:border-white hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer ${
+              isAtStart ? "opacity-30 cursor-not-allowed hover:scale-100 hover:bg-white/20 hover:text-white hover:border-white/20" : ""
+            }`}
+            aria-label="Previous slide"
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+          <button 
+            onClick={handleNext}
+            disabled={isAtEnd}
+            className={`w-14 h-14 rounded-full border border-white/20 flex items-center justify-center text-white bg-white/20 hover:bg-white hover:text-black hover:border-white hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer ${
+              isAtEnd ? "opacity-30 cursor-not-allowed hover:scale-100 hover:bg-white/20 hover:text-white hover:border-white/20" : ""
+            }`}
+            aria-label="Next slide"
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
+        </div>
       </div>
     );
   }
@@ -174,7 +215,7 @@ export default function CollectionsSlider({ activeSlide, setActiveSlide }: Colle
   // Fallback to React-Slick for mobile touch and swipe gestures
   return (
     <div className="relative w-full z-20 group/slider overflow-hidden">
-      <Slider ref={sliderRef} {...settings} className="collections-slick-slider px-1">
+      <Slider ref={sliderRef} {...settings} className={`collections-slick-slider px-1 ${isMobile ? "pb-10" : ""}`}>
         {collections.map((col, idx) => (
           <div key={idx} className="px-3 outline-none">
             <Link 

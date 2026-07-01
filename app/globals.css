@@ -39,7 +39,34 @@ body {
   display: none;
 }
 
+/* Hide horizontal scrollbars globally */
+::-webkit-scrollbar:horizontal {
+  display: none;
+}
+
+/* Utility to hide scrollbars entirely on specific elements */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
 /* --- Slick Carousel Styling Overrides --- */
+
+/* Ensure slick track uses flexbox so slides have equal height and fill the container */
+.slick-track {
+  display: flex !important;
+}
+
+.slick-slide {
+  height: auto !important;
+}
+
+.slick-slide > div {
+  height: 100%;
+}
 
 /* Slick lists should not clip absolutely positioned arrows if they need to overlap slightly */
 .slick-list {

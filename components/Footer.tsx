@@ -124,13 +124,23 @@ export default function Footer() {
         <div className="flex flex-wrap items-center justify-between gap-6">
           {/* SOCIAL LINKS */}
           <div className="flex flex-wrap gap-x-8 gap-y-3 text-xs uppercase tracking-[0.3em] text-zinc-400 font-light">
-            <a href="#" className="hover:text-white transition-colors duration-300">Instagram</a>
+            <a
+              href="https://www.instagram.com/bathxglobal/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors duration-300"
+            >
+              Instagram
+            </a>
             <span>/</span>
-            <a href="#" className="hover:text-white transition-colors duration-300">Linkedin</a>
-            <span>/</span>
-            <a href="#" className="hover:text-white transition-colors duration-300">Pinterest</a>
-            <span>/</span>
-            <a href="#" className="hover:text-white transition-colors duration-300">Youtube</a>
+            <a
+              href="https://www.facebook.com/bathxglobal"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors duration-300"
+            >
+              Facebook
+            </a>
           </div>
 
           {/* SECONDARY INFO */}

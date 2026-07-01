@@ -192,7 +192,7 @@ export default function ContentSection() {
                 Our Collections
               </h2>
 
-              <p className="max-w-md text-zinc-400 text-sm md:text-base font-light leading-relaxed tracking-wide">
+              <p className="max-w-md text-zinc-400 text-sm md:text-base font-light leading-relaxed tracking-wide px-[16px]">
                 Explore our curated range of luxury bath fittings and bespoke metallic fixtures.
               </p>
             </motion.div>

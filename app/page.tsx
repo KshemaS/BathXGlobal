@@ -34,13 +34,10 @@ export default function Home() {
       <FullPageScroll>
         <HeroSection />
         <ImageSection image={img1.src} title="Crafted Elegance" />
-        <ImageSection image={img2.src} title="Timeless Luxury" />
-        
-        {/* On mobile: show "Modern Serenity" as its own standalone ImageSection slide */}
+        <ImageSection image={img2.src} title="Timeless Luxury" />        
         {showMobileLayout && (
           <ImageSection image={heroImage.src} title="Modern Serenity" />
         )}
-        
         <ContentSection />
         <NewArrivalsSlider />
         <StoreShowcase />

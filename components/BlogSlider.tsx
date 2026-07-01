@@ -82,7 +82,7 @@ export default function BlogSlider() {
       {/* HEADER SECTION WITH TOP-RIGHT BUTTONS */}
       <div className="w-full max-w-[84vw] 4xl:max-w-[1600px] mx-auto mb-10 md:mb-12 flex items-end justify-between">
         <div>
-          <p className="text-[10px] uppercase tracking-[0.4em] text-zinc-500 mb-2.5 font-light">
+          <p className="text-[12px] uppercase tracking-[0.4em] text-zinc-400 mb-2.5 font-medium">
             Insights & Inspiration
           </p>
           <h2 className="text-4xl md:text-5xl font-medium text-white tracking-wide leading-tight">
@@ -111,9 +111,9 @@ export default function BlogSlider() {
 
       {/* CAROUSEL SLIDER WRAPPER */}
       <div className="w-full max-w-[84vw] 4xl:max-w-[1600px] mx-auto">
-        <Slider ref={sliderRef} {...settings} className="blog-slick-slider">
+        <Slider ref={sliderRef} {...settings} className="blog-slick-slider -mx-3 py-4">
           {blogs.map((blog, i) => (
-            <div key={i} className="md:px-3 outline-none">
+            <div key={i} className="px-3 outline-none">
               <Link href={`/blog/${blog.id}`} className="block">
                 <motion.div
                   whileHover={{ y: -6, scale: 1.015 }}

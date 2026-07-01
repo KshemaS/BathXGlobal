@@ -87,7 +87,7 @@ export default function AboutPillars() {
         </div>
 
         {/* Horizontal Slide Indicators */}
-        <div className="flex justify-center gap-2 md:gap-6 xl:gap-12 w-full max-w-4xl mb-6 md:mb-16 pb-4">
+        <div className="flex justify-start md:justify-center gap-2 md:gap-6 xl:gap-12 w-full max-w-4xl mb-6 md:mb-16 pb-4">
           {pillars?.map((p, idx) => {
             const isActive = idx === activeSlide;
             return (
@@ -103,7 +103,7 @@ export default function AboutPillars() {
                 <span className="text-[16px] font-mono tracking-widest text-zinc-500">
                   {p.num}
                 </span>
-                <span className={`text-[16px] md:text-[20px] font-normal tracking-wide transition-colors duration-300 ${isActive ? "text-white" : "text-zinc-500 group-hover:text-zinc-300"}`}>
+                <span className={`text-[16px] md:text-[22px] xl:text-[20px] font-normal tracking-wide transition-colors duration-300 ${isActive ? "text-white" : "text-zinc-500 group-hover:text-zinc-300"}`}>
                   {p.title}
                 </span>
 

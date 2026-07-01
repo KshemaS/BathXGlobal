@@ -370,7 +370,7 @@ export default function CategoriesClient() {
           <div className="lg:col-span-9">
             <motion.div 
               layout
-              className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
+              className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-10"
             >
               <AnimatePresence mode="popLayout">
                 {filteredProducts.map((product) => (
@@ -421,16 +421,15 @@ export default function CategoriesClient() {
                         {product.name}
                       </h3>
 
-                      <div className="mt-auto pt-4 flex items-center justify-between border-t border-white/5">
+                      {/* <div className="mt-auto pt-4 flex items-center justify-between border-t border-white/5">
                         <span className="text-[10px] uppercase tracking-[0.3em] text-zinc-400 font-semibold group-hover:text-white transition-colors duration-300">
                           View Details
                         </span>
                         
-                        {/* Hover Circle Button */}
                         <div className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white transition-all duration-500 group-hover:bg-white group-hover:text-black">
                           <MoveUpRight className="w-4 h-4" />
                         </div>
-                      </div>
+                      </div> */}
                     </div>
 
                   </motion.div>

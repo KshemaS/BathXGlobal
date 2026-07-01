@@ -21,10 +21,9 @@ interface ShowroomCardProps {
     tagline: string;
   };
   index: number;
-  onBookingClick: (cityName: string) => void;
 }
 
-export default function ShowroomCard({ boutique, index, onBookingClick }: ShowroomCardProps) {
+export default function ShowroomCard({ boutique, index }: ShowroomCardProps) {
   const isEven = index % 2 === 0;
 
   return (
