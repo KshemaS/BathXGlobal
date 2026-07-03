@@ -130,7 +130,7 @@ export default function AboutPillars() {
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.6, ease }}
-              className="w-full h-auto md:h-[520px] bg-zinc-950 border border-zinc-900 rounded-2xl overflow-hidden flex flex-col md:flex-row items-center gap-8 md:gap-16 shadow-sm"
+              className="w-full h-auto md:h-[520px] bg-zinc-950 border border-zinc-800 rounded-2xl overflow-hidden flex flex-col md:flex-row items-center gap-8 md:gap-16 shadow-sm p-4 md:p-6"
             >
               {/* Outlined Background Number */}
               <div className="absolute right-10 bottom-6 text-[10rem] font-bold text-zinc-900/25 pointer-events-none select-none">

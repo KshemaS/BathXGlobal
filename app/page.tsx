@@ -24,7 +24,16 @@ export default function Home() {
       setIsDesktop(window.innerWidth >= 1024);
     };
     window.addEventListener("resize", checkScreen);
-    return () => window.removeEventListener("resize", checkScreen);
+
+    // Hide scrollbar on homepage
+    document.documentElement.classList.add("no-scrollbar");
+    document.body.classList.add("no-scrollbar");
+
+    return () => {
+      window.removeEventListener("resize", checkScreen);
+      document.documentElement.classList.remove("no-scrollbar");
+      document.body.classList.remove("no-scrollbar");
+    };
   }, []);
 
   const showMobileLayout = mounted && !isDesktop;

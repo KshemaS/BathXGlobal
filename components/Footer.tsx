@@ -157,8 +157,7 @@ export default function Footer() {
             © {currentYear} Bath-x Global. All rights reserved.
           </div>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-white transition-colors duration-300">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors duration-300">Terms of Use</a>
+            <Link href="/privacy-policy" className="hover:text-white transition-colors duration-300">Privacy Policy</Link>
           </div>
         </div>
 

@@ -51,8 +51,22 @@ export default function FullPageScroll({ children, onComplete }: Props) {
   }, []);
 
   useEffect(() => {
+    // Reset scroll position to top on mount
+    window.scrollTo(0, 0);
+
+    // Disable automatic browser scroll restoration for the homepage
+    const originalScrollRestoration = typeof window !== "undefined" ? window.history.scrollRestoration : undefined;
+    if (originalScrollRestoration && typeof window !== "undefined") {
+      window.history.scrollRestoration = "manual";
+    }
+
     document.body.style.overflow = "hidden";
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = "";
+      if (originalScrollRestoration && typeof window !== "undefined") {
+        window.history.scrollRestoration = originalScrollRestoration;
+      }
+    };
   }, []);
 
   useEffect(() => {
