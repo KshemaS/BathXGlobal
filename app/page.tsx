@@ -18,16 +18,30 @@ export default function Home() {
   const [isDesktop, setIsDesktop] = useState(true);
 
   useEffect(() => {
+    const checkScreen = () => {
+      const isD = window.innerWidth >= 1024;
+      setIsDesktop(isD);
+      if (isD) {
+        document.documentElement.classList.add("no-scrollbar");
+        document.body.classList.add("no-scrollbar");
+      } else {
+        document.documentElement.classList.remove("no-scrollbar");
+        document.body.classList.remove("no-scrollbar");
+      }
+    };
+
     setIsDesktop(window.innerWidth >= 1024);
     setMounted(true);
-    const checkScreen = () => {
-      setIsDesktop(window.innerWidth >= 1024);
-    };
-    window.addEventListener("resize", checkScreen);
 
-    // Hide scrollbar on homepage
-    document.documentElement.classList.add("no-scrollbar");
-    document.body.classList.add("no-scrollbar");
+    if (window.innerWidth >= 1024) {
+      document.documentElement.classList.add("no-scrollbar");
+      document.body.classList.add("no-scrollbar");
+    } else {
+      document.documentElement.classList.remove("no-scrollbar");
+      document.body.classList.remove("no-scrollbar");
+    }
+
+    window.addEventListener("resize", checkScreen);
 
     return () => {
       window.removeEventListener("resize", checkScreen);

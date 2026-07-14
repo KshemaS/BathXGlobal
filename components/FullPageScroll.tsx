@@ -23,6 +23,21 @@ export default function FullPageScroll({ children, onComplete }: Props) {
   const completed = useRef(false);
   const prevCurrent = useRef(0);
 
+  const [mounted, setMounted] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(true);
+
+  useEffect(() => {
+    setIsDesktop(window.innerWidth >= 1024);
+    setMounted(true);
+    const checkScreen = () => {
+      setIsDesktop(window.innerWidth >= 1024);
+    };
+    window.addEventListener("resize", checkScreen);
+    return () => {
+      window.removeEventListener("resize", checkScreen);
+    };
+  }, []);
+
   const navigate = (next: number) => {
     if (locked.current || next < 0 || next >= sections.length) return;
     locked.current = true;
@@ -51,6 +66,8 @@ export default function FullPageScroll({ children, onComplete }: Props) {
   }, []);
 
   useEffect(() => {
+    if (!mounted || !isDesktop) return;
+
     // Reset scroll position to top on mount
     window.scrollTo(0, 0);
 
@@ -67,9 +84,11 @@ export default function FullPageScroll({ children, onComplete }: Props) {
         window.history.scrollRestoration = originalScrollRestoration;
       }
     };
-  }, []);
+  }, [mounted, isDesktop]);
 
   useEffect(() => {
+    if (!mounted || !isDesktop) return;
+
     const finish = () => {
       if (completed.current) return;
       completed.current = true;
@@ -145,7 +164,7 @@ export default function FullPageScroll({ children, onComplete }: Props) {
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("keydown", onKey);
     };
-  }, [sections.length, onComplete]);
+  }, [sections.length, onComplete, mounted, isDesktop]);
 
   const variants = {
     enter: (dir: number) =>
@@ -158,6 +177,20 @@ export default function FullPageScroll({ children, onComplete }: Props) {
         ? { y: `${dir * -100}%`, x: "0%" }
         : { x: `${dir * -100}%`, y: "0%" },
   };
+
+  if (mounted && !isDesktop) {
+    return (
+      <FpsContext.Provider value={{ registerInnerScroll, unregisterInnerScroll, prevIndex: prevCurrent.current }}>
+        <div className="w-full relative">
+          {sections.map((section, idx) => (
+            <div key={idx} className="w-full relative">
+              {section}
+            </div>
+          ))}
+        </div>
+      </FpsContext.Provider>
+    );
+  }
 
   return (
     <FpsContext.Provider value={{ registerInnerScroll, unregisterInnerScroll, prevIndex: prevCurrent.current }}>
